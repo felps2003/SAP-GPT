@@ -1,10 +1,12 @@
 import openai
 
 # Chave Felype - GPT
-openai.api_key = "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"
+with open("util/api_key.txt", "r") as file:
+    openai.api_key = file.read()
+    
 model_engine = "text-davinci-003"
 
-def gpt(prompt):
+def get_response(prompt):
     response = openai.Completion.create(
         engine=model_engine,
         prompt=prompt,
