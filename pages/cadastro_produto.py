@@ -33,6 +33,7 @@ if decisao_descricao == "ChatGPT":
         descricao_produto = get_response(f"Escreva uma descricao para o produto: {nome_produto}")
     except Exception as e:
         st.error(f"Alguem erro encontrado em relaçao ao chatgpt. Erro: {e}")
+        
 if decisao_descricao == "Escrever":
     descricao_produto = st.text_area(label = "Descrição do Produto")
 
