@@ -25,22 +25,24 @@ for uploaded_file in uploaded_files:
     if uploaded_file:
         df = pd.read_excel(uploaded_file)
         with st.expander("Seu arquivo"):    
-            st.table(df)
+            st.dataframe(df)
         with st.expander("Criar coluna de descrição"): 
-            coluna = st.text_input("Qual o nome da coluna que contem os nomes dos produtos")
+            coluna = st.selectbox("Selecione o nome da coluna que contem os nomes dos produtos", options = df.columns)
             if st.button("Gerar descrição"):
                 if coluna:
                     try:
-                        df['Descricao'] = ''
-                        for i in df.index:
-                            nome = df.loc[i,coluna]
-                            descricao = get_response(f"Escreva uma descricao para o produto (em apenas 10 palavras): {nome}")
-                            df.loc[i,'Descricao'] = descricao
-                        st.table(df)
-                        excel = df.to_excel()
-                        st.download_button(label="Baixar o Excel",data=excel,file_name='large_df.xlsx')
+                        with st.spinner("Gerando descrições, por favor aguarde..."):
+                            df['Descricao'] = ''
+                            for i in df.index:
+                                nome = df.loc[i,coluna]
+                                descricao = get_response(f"Escreva uma descricao para o produto (em apenas 10 palavras): {nome}")
+                                df.loc[i,'Descricao'] = descricao
+                            st.dataframe(df)
 
-                    except:
-                        st.error('Ocorreu um erro com o Chat GPT')
+                        excel = df.to_csv(sep=";").encode('utf-8')
+                        st.download_button(label = "Baixar o Excel", data = excel, file_name = 'large_df.csv')
+
+                    except Exception as e:
+                        st.error(f'Ocorreu um erro com o Chat GPT: {e}')
                 else:
                     st.warning("Por favor preencha o nome da coluna que contem os nomes")
