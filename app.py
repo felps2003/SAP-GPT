@@ -27,3 +27,5 @@ st.success("Constituido por: Henrico, Felype, Sara, Emily e Daniel!")
 
 if st.button("Preencher dados do produto"):
     switch_page("cadastro_produto")
+elif st.button("Enviar Excel para preencher dados do produto"):
+    switch_page("preencher_excel")
