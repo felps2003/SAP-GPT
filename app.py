@@ -84,7 +84,7 @@ if tab_create:
                 elif not confirm_password:
                     st.warning("Por favor confirme a senha.")
                 elif password_create != confirm_password:
-                    st.warning("Senha nao coincidem!")
+                    st.warning("Senhas nao coincidem!")
                 else:
                     # cur.execute(f"INSERT INTO usuarios (email,password) VALUES (?,?);", (email_create, password_create)).fetchall()
                     # con.commit()                
