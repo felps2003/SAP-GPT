@@ -28,8 +28,6 @@ st.info("Este aplicativo está em desenvolvimento pelo time da NoName!")
 st.success("Constituido por: Henrico, Felype, Sara, Emily e Daniel!")
 
 
-# con = sqlite3.connect("data/data.db")
-# cur = con.cursor()
 can_pass = False
 tab_login, tab_create = st.tabs(["Login", "Criar conta"])
 
@@ -43,26 +41,17 @@ if tab_login:
             submit = st.form_submit_button("Entrar")
 
         if submit and email:
-            data = pd.DataFrame()
-            # data = pd.read_sql_query("SELECT * from usuarios", con)
+            
+            retorno = consultar_usuario(email, password)
 
-            for _, col in data.iterrows():
-                if email == str(col.email) and password == str(col.password):
-                    auth = True
-                    break
-                else:
-                    auth = False
-                    continue
-
-            if "auth" in globals():
-                if auth != False:
-                    can_pass = True
-                    placeholder_login.empty()
-                    st.success("Usuario Autenticado!")
-                else:
-                    st.error("Usuario nao autenticado")
+            if retorno == True:
+                st.success("Usuario Autenticado!")
+                registrar_email_em_log(email)
+                can_pass = True
+            elif retorno == False:
+                st.error("Usuario nao autenticado")
             else:
-                pass
+                st.warning('Json não chamado')
 
         elif submit and not email:
             st.warning("Por favor coloque seu email")
@@ -86,12 +75,10 @@ if tab_create:
                 elif password_create != confirm_password:
                     st.warning("Senhas nao coincidem!")
                 else:
-                    # cur.execute(f"INSERT INTO usuarios (email,password) VALUES (?,?);", (email_create, password_create)).fetchall()
-                    # con.commit()                
+                    adicionar_usuario(email_create, password_create)
+                    registrar_email_em_log(email_create)
                     st.success("Login created successfully!!!")
+                    can_pass = True
 
 if can_pass != False:
-    if st.button("Preencher dados do produto"):
-        switch_page("cadastro_produto")
-    elif st.button("Enviar Excel para preencher dados do produto"):
-        switch_page("preencher_excel")
+    switch_page("main")

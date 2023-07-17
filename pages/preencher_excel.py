@@ -40,7 +40,7 @@ for uploaded_file in uploaded_files:
                             st.dataframe(df)
 
                         excel = df.to_csv(sep=";").encode('utf-8')
-                        st.download_button(label = "Baixar o Excel", data = excel, file_name = 'large_df.csv')
+                        st.download_button(label = "Baixar o Excel", data = excel, file_name = f'{uploaded_file.name}_descricao.csv')
 
                     except Exception as e:
                         st.error(f'Ocorreu um erro com o Chat GPT: {e}')
