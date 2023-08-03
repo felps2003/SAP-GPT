@@ -52,26 +52,9 @@ def registrar_email_em_log(email):
         email (str): O email a ser registrado no arquivo de log.
 
     """
-    with open("util/log.txt", "r+") as file:
-        lines = file.readlines()
-
-        # Verifica se o email já está presente no arquivo
-        email_presente = False
-        for index, linha in enumerate(lines):
-            if linha.strip() == email:
-                email_presente = True
-                break
-
-        # Se o email já estiver presente, remove a entrada antiga
-        if email_presente:
-            file.seek(0)  # Volta para o início do arquivo
-            for line in lines:
-                if line.strip() != email:
-                    file.write(line)
-            file.truncate()  # Trunca o arquivo para o tamanho atual
-
-        # Adiciona o novo email no final do arquivo
+    with open("util/log.txt", "w") as file:
         file.write(email)
+        
 
 
 def consultar_email_em_log():
