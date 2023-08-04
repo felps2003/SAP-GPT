@@ -1,33 +1,60 @@
-import torch
-import torchvision
+from ultralytics import YOLO
 import cv2
+import math 
+import streamlit as st
 
-model = torch.load("model.pt")
+run = st.checkbox("Run")
+FRAME_WINDOW = st.image([])
+cap = cv2.VideoCapture(1)
+TH_CONFIDENCE = 0.60
 
-cap = cv2.VideoCapture(0)
+model = YOLO("/Users/henricobela/Desktop/Estudos/Challenge/SAP-GPT/model/model.pt")
 
-while True:
-    ret, frame = cap.read()
+classNames = ["person", "bicycle", "car", "motorbike", "aeroplane", "bus", "train", "truck", "boat",
+              "traffic light", "fire hydrant", "stop sign", "parking meter", "bench", "bird", "cat",
+              "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra", "giraffe", "backpack", "umbrella",
+              "handbag", "tie", "suitcase", "frisbee", "skis", "snowboard", "sports ball", "kite", "baseball bat",
+              "baseball glove", "skateboard", "surfboard", "tennis racket", "bottle", "wine glass", "cup",
+              "fork", "knife", "spoon", "bowl", "banana", "apple", "sandwich", "orange", "broccoli",
+              "carrot", "hot dog", "pizza", "donut", "cake", "chair", "sofa", "pottedplant", "bed",
+              "diningtable", "toilet", "tvmonitor", "laptop", "mouse", "remote", "keyboard", "cell phone",
+              "microwave", "oven", "toaster", "sink", "refrigerator", "book", "clock", "vase", "scissors",
+              "teddy bear", "hair drier", "toothbrush", "glasses", "wallet",
+              ]
 
-    image = torchvision.transforms.Resize((416, 416))(frame)
+# with open("yolo_cfg/yolov3.txt", "r") as file:  
+#     classNames = file.readlines()
 
-    predictions = model(image)
 
-    detections = torchvision.ops.nms(predictions, 0.45, iou_threshold=0.5)
-    for detection in detections:
-        x1 = detection[0]
-        y1 = detection[1]
-        x2 = detection[2]
-        y2 = detection[3]
-        class_id = detection[4]
-        confidence = detection[5]
-        cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
-        cv2.putText(frame, f"Class: {class_id}, Confidence: {confidence}", (x1, y1 + 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+while run:
+    success, img = cap.read()
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    results = model(img, stream=True)
 
-    cv2.imshow("Image", frame)
+    for r in results:
+        boxes = r.boxes
 
-    key = cv2.waitKey(1)
-    if key == ord("q"):
-        break
+        for box in boxes:
+            confidence = math.ceil((box.conf[0]*100))/100
 
-cap.release()
+            if confidence > TH_CONFIDENCE:
+
+                x1, y1, x2, y2 = box.xyxy[0]
+                x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2) # convert to int values
+
+                cv2.rectangle(img, (x1, y1), (x2, y2), (0, 255, 0), 3)
+
+                cls = int(box.cls[0])
+                print("Class name -->", classNames[cls])
+
+                org = [x1, y1]
+                font = cv2.FONT_HERSHEY_SIMPLEX
+                fontScale = 1
+                color = (255, 0, 0)
+                thickness = 2
+                org_conf = [x2, y2]
+
+                cv2.putText(img, classNames[cls], org, font, fontScale, color, thickness)
+                cv2.putText(img, f"{confidence}", org_conf, font, fontScale, color, thickness)
+
+    FRAME_WINDOW.image(img)
