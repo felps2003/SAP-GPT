@@ -24,7 +24,10 @@ for uploaded_file in uploaded_files:
     bytes_data = uploaded_file.read()
     st.write("Nome do arquivo:", uploaded_file.name)
     if uploaded_file:
-        df = pd.read_excel(uploaded_file)
+        try:
+            df = pd.read_excel(uploaded_file)
+        except:
+            df = pd.read_csv(uploaded_file)
         teste = ler_dataframe_e_converter(df, sheet_name=None)
         email = consultar_email_em_log()
         nome_tabela = st.text_input("Nome da Tabela")

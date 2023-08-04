@@ -60,6 +60,7 @@ if tab_create:
     with tab_create:
         placeholder_create = st.empty()
         with placeholder_create.form("create"):
+            nome = st.text_input("Nome")
             email_create = st.text_input("Email")
             password_create = st.text_input("Senha", type = "password")
             confirm_password = st.text_input("Confirmar senha", type = "password")
@@ -68,6 +69,10 @@ if tab_create:
             if send:
                 if not email_create:
                     st.warning("Por favor coloque seu email.")
+                elif not '@' in email_create and not '.com' in email_create:
+                    st.warning("Por favor coloque um email valido, como (exemplo@gmail.com).")
+                elif not nome:
+                    st.warning("Por favor coloque seu nome.")
                 elif not password_create:
                     st.warning("Por favor coloque sua senha.")
                 elif not confirm_password:
@@ -75,7 +80,7 @@ if tab_create:
                 elif password_create != confirm_password:
                     st.warning("Senhas nao coincidem!")
                 else:
-                    adicionar_usuario(email_create, password_create)
+                    adicionar_usuario(nome, email_create, password_create)
                     registrar_email_em_log(email_create)
                     st.success("Login created successfully!!!")
                     can_pass = True

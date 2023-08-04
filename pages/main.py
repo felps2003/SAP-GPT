@@ -25,6 +25,13 @@ col_project_name.header("Challenge SAP")
 st.markdown("---", unsafe_allow_html = True)
 
 
+api_column, botao_column  = st.columns([3, 1])
+with api_column:
+    api = st.text_input("Token pessoal do Openai")
+with botao_column:
+    teste = st.button("adicionar novo token")
+    if teste:
+        st.success('ae')
 
 if st.button("Preencher dados do produto"):
     switch_page("cadastro_produto")
