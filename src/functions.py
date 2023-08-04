@@ -3,7 +3,7 @@ import pandas as pd
 import streamlit as st
 
 
-def adicionar_usuario(email, senha):
+def adicionar_usuario(nome, email, senha):
     """
     Adiciona um novo usuário (email e senha) ao arquivo "db/usuarios.json".
 
@@ -14,13 +14,18 @@ def adicionar_usuario(email, senha):
     """
     with open("db/usuarios.json", "r") as file:
         data = json.load(file)
+    with open("db/dataframes.json", "r") as file:
+        df = json.load(file)
 
-    novo_usuario = {"email": email, "senha": senha, "dataframes": []}
+    novo_usuario = {"Nome": nome,"email": email, "senha": senha, "dataframes": 0, "requests API": 0, "acessos": 0}
+    novo_df_usuario = {"email": email, "dataframes": []}
     data["usuarios"].append(novo_usuario)
+    df["bases"].append(novo_df_usuario)
 
     with open("db/usuarios.json", "w") as file:
         json.dump(data, file)
-
+    with open("db/dataframes.json", "w") as file:
+        json.dump(df, file)
 
 def consultar_usuario(email, senha):
     """
@@ -112,13 +117,14 @@ def adicionar_dataframe_para_email(email, dataframe_id, colunas, dados):
               False se o email não for encontrado.
 
     """
-    with open("db/usuarios.json", "r") as file:
+    with open("db/dataframes.json", "r") as file:
         data = json.load(file)
 
-    for usuario in data["usuarios"]:
+    for usuario in data["bases"]:
         email_para_teste = str(usuario["email"]).lower()
         email = str(email).lower()
-        try:
+        st.warning(email_para_teste+'/'+email)
+        if email_para_teste == email:
             dataframes = usuario.get("dataframes", [])
             novo_dataframe = {
                 "id": dataframe_id,
@@ -127,10 +133,17 @@ def adicionar_dataframe_para_email(email, dataframe_id, colunas, dados):
             }
             dataframes.append(novo_dataframe)
             usuario["dataframes"] = dataframes
-            with open("db/usuarios.json", "w") as file:
-                json.dump(data, file)
-            return True
-        except:
-            return False
+            with open("db/dataframes.json", "w") as file:
+                json.dump(data,file) 
+            with open("db/usuarios.json", "r") as file:
+                data = json.load(file)
+            for usuario in data["usuarios"]:
+                if usuario["email"] == email:
+                    usuario["dataframes"] += 1
+                    with open("db/usuarios.json", "w") as arquivo:
+                        json.dump(data, arquivo)
+                    return True
+        
+    return False
 
 
