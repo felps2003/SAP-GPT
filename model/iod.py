@@ -6,12 +6,12 @@ import streamlit as st
 run = st.checkbox("Run")
 FRAME_WINDOW = st.image([])
 cap = cv2.VideoCapture(1)
-TH_CONFIDENCE = 0.60
+TH_CONFIDENCE = 0.1
 
-model = YOLO("/Users/henricobela/Desktop/Estudos/Challenge/SAP-GPT/model/model.pt")
+model = YOLO("/home/henrico/Github/SAP-GPT/model/model.pt")
 
 classNames = ["person", "bicycle", "car", "motorbike", "aeroplane", "bus", "train", "truck", "boat",
-              "traffic light", "fire hydrant", "stop sign", "parking meter", "bench", "bird", "cat",
+              "traffic light", "fire hydrant", "stop sign", "parkpiping meter", "bench", "bird", "cat",
               "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra", "giraffe", "backpack", "umbrella",
               "handbag", "tie", "suitcase", "frisbee", "skis", "snowboard", "sports ball", "kite", "baseball bat",
               "baseball glove", "skateboard", "surfboard", "tennis racket", "bottle", "wine glass", "cup",
@@ -21,6 +21,7 @@ classNames = ["person", "bicycle", "car", "motorbike", "aeroplane", "bus", "trai
               "microwave", "oven", "toaster", "sink", "refrigerator", "book", "clock", "vase", "scissors",
               "teddy bear", "hair drier", "toothbrush", "glasses", "wallet",
               ]
+
 
 # with open("yolo_cfg/yolov3.txt", "r") as file:  
 #     classNames = file.readlines()
