@@ -2,13 +2,15 @@ from ultralytics import YOLO
 import cv2
 import math 
 import streamlit as st
+import os
 
 run = st.checkbox("Run")
 FRAME_WINDOW = st.image([])
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 TH_CONFIDENCE = 0.1
 
-model = YOLO("/Users/henricobela/Desktop/Estudos/Challenge/SAP-GPT/model/model.pt")
+# model = YOLO("/Users/henricobela/Desktop/Estudos/Challenge/SAP-GPT/model/model.pt")
+model = YOLO("/home/henrico/Github/SAP-GPT/model/model.pt")
 
 classNames = ["person", "bicycle", "car", "motorbike", "aeroplane", "bus", "train", "truck", "boat",
               "traffic light", "fire hydrant", "stop sign", "parkpiping meter", "bench", "bird", "cat",
@@ -47,6 +49,9 @@ while run:
 
                 cls = int(box.cls[0])
                 print("Class name -->", classNames[cls])
+                os.system("clear")
+                
+                
 
                 org = [x1, y1]
                 font = cv2.FONT_HERSHEY_SIMPLEX

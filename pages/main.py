@@ -38,7 +38,7 @@ if st.button("Preencher dados do produto"):
 elif st.button("Enviar Excel para preencher dados do produto"):
     switch_page("preencher_excel")
 elif st.button("Detectar produtos"):
-    switch_page("dectar_produtos")
+    switch_page("detectar_produtos")
 elif st.button("Adicionar excel"):
     switch_page("texte_excel")
 elif st.button("Sair"):
