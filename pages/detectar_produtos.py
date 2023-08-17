@@ -7,18 +7,18 @@ import os
 
 col_project_name, col_img  = st.columns([3, 1])
 col_img.image("util/imgs/logo.png")
-col_project_name.header("Deteccao de Objetos (Parafusos ?)")
+col_project_name.header("Deteccao de Coca ou Fanta")
 st.markdown("---", unsafe_allow_html = True)
 
 st.info("Para iniciar a deteccao de objetos, por favor selecione a checkbox: 'Run'")
 
 run = st.checkbox("Run")
 FRAME_WINDOW = st.image([])
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 TH_CONFIDENCE = 0.1
 
-# model = YOLO("/Users/henricobela/Desktop/Estudos/Challenge/SAP-GPT/model/model.pt")
-model = YOLO("/home/henrico/Github/SAP-GPT/model/model.pt")
+model = YOLO("/Users/henricobela/Desktop/Estudos/Challenge/SAP-GPT/model/model.pt")
+# model = YOLO("/home/henrico/Github/SAP-GPT/model/model.pt")
 
 classNames = ["person", "bicycle", "car", "motorbike", "aeroplane", "bus", "train", "truck", "boat",
               "traffic light", "fire hydrant", "stop sign", "parkpiping meter", "bench", "bird", "cat",
