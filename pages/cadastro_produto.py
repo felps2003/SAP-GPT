@@ -1,6 +1,7 @@
 import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
 from src.modelo_gpt import get_response
+from src.functions import *
 
 
 st.markdown(

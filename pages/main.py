@@ -27,11 +27,16 @@ st.markdown("---", unsafe_allow_html = True)
 
 api_column, botao_column  = st.columns([3, 1])
 with api_column:
-    api = st.text_input("Token pessoal do Openai")
+    api = st.text_input("Token pessoal do Openai",type="password")
 with botao_column:
-    teste = st.button("adicionar novo token")
-    if teste:
-        st.success('ae')
+    adicionar = st.button("adicionar novo token")
+    if adicionar:
+        atualizar_chave_api(api)
+        st.success('API adicionada com sucesso')
+        api = ''
+        st.experimental_rerun()
+
+
 
 if st.button("Preencher dados do produto"):
     switch_page("cadastro_produto")

@@ -17,7 +17,7 @@ FRAME_WINDOW = st.image([])
 cap = cv2.VideoCapture(1)
 TH_CONFIDENCE = 0.1
 
-model = YOLO("/Users/henricobela/Desktop/Estudos/Challenge/SAP-GPT/model/model.pt")
+model = YOLO("model/model.pt")
 # model = YOLO("/home/henrico/Github/SAP-GPT/model/model.pt")
 
 classNames = ["person", "bicycle", "car", "motorbike", "aeroplane", "bus", "train", "truck", "boat",

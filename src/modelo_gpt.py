@@ -1,8 +1,8 @@
 import openai
+from src.functions import *
 
 # Chave Felype - GPT
-with open("util/api_key.txt", "r") as file:
-    openai.api_key = file.read()
+openai.api_key = obter_api()
     
 model_engine = "text-davinci-003"
 

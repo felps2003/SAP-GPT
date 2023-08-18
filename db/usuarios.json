@@ -1,1 +1,46 @@
-{"usuarios": [{"Nome": "Felps", "email": "admin", "senha": "admin", "dataframes": 1, "requests API": 0, "acessos": 0}, {"Nome": "Henri", "email": "henrico@gmail.com", "senha": "1234", "dataframes": 3, "requests API": 0, "acessos": 0, "Token": ""}, {"Nome": "Henrico", "email": "henrico.mail@mail.com", "senha": "senha12345", "dataframes": 0, "requests API": 0, "acessos": 0}]}
+{
+    "usuarios": [
+        {
+            "Nome": "Felps",
+            "email": "admin",
+            "senha": "admin",
+            "dataframes": 1,
+            "requests API": 0,
+            "acessos": 0
+        },
+        {
+            "Nome": "Henri",
+            "email": "henrico@gmail.com",
+            "senha": "1234",
+            "dataframes": 3,
+            "requests API": 0,
+            "acessos": 0
+        },
+        {
+            "Nome": "Henrico",
+            "email": "henrico.mail@mail.com",
+            "senha": "senha12345",
+            "dataframes": 0,
+            "requests API": 0,
+            "acessos": 0
+        },
+        {
+            "Nome": "Felype Nunes de Souza",
+            "email": "felypenunes2010@gmail.com",
+            "senha": "#Fn08081998",
+            "dataframes": 0,
+            "requests API": 0,
+            "acessos": 0,
+            "API": "batata"
+        },
+        {
+            "Nome": "Felype Nunes de Souza",
+            "email": "felypenunes1998@gmail.com",
+            "senha": "1234",
+            "dataframes": 0,
+            "requests API": 0,
+            "acessos": 0,
+            "API": "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"
+        }
+    ]
+}
