@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 valter@gmail.com
+=======
+henrico.mail@mail.com
+>>>>>>> refs/remotes/origin/main
