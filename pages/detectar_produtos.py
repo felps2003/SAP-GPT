@@ -83,6 +83,7 @@ import tensorflow as tf
 from PIL import Image
 import numpy as np
 from keras.applications.vgg16 import preprocess_input
+from src.functions import return_produtos_df
 
 
 col_project_name, col_img  = st.columns([3, 1])
@@ -169,8 +170,10 @@ elif f_v == "Foto":
 if ("coca_conf" in globals()) and ("coca_conf" in globals()):
     st.success(f"Coca {coca_conf}, Fanta {fanta_conf}")
     if coca_conf > fanta_conf:
-        st.success("Implementar insercao Coca")
+        dicionario_gpt = return_produtos_df("Refrigerante Coca Cola")
+        st.success(**dicionario_gpt)
     else:
-        st.success("Implementar insercao Fanta")
+        dicionario_gpt = return_produtos_df("Refrigerante Fanta")
+        st.success(**dicionario_gpt)
 else:
     st.warning("Prediçao ainda não realizada")
