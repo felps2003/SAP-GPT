@@ -29,6 +29,7 @@ st.markdown("---", unsafe_allow_html = True)
 
 
 can_pass = False
+
 tab_login, tab_create = st.tabs(["Login", "Criar conta"])
 
 
@@ -83,6 +84,7 @@ if tab_create:
                     adicionar_usuario(nome, email_create, password_create)
                     registrar_email_em_log(email_create)
                     st.success("Conta criada com sucesso!")
+                    acesso()
                     can_pass = True
 
 if can_pass != False:
