@@ -8,6 +8,9 @@ st.set_page_config(initial_sidebar_state = "collapsed",
                    page_icon = "util/imgs/logo.png",
                    page_title = "Challenge NoName")
 
+with open('css/background.css') as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
 st.markdown(
     """
         <style>
@@ -16,16 +19,13 @@ st.markdown(
             }
             #MainMenu {visibility: hidden;}
             footer {visibility: hidden;}
-        </style>
+        </>
     """,
     unsafe_allow_html = True)
 col_project_name, col_img  = st.columns([3, 1])
 col_img.image("util/imgs/logo.png")
 col_project_name.header("Challenge SAP")
 st.markdown("---", unsafe_allow_html = True)
-
-st.info("Este aplicativo está em desenvolvimento pelo time da NoName!")
-st.success("Constituido por: Henrico, Felype, Sara, Emily e Daniel!")
 
 
 can_pass = False
@@ -69,7 +69,7 @@ if tab_create:
             if send:
                 if not email_create:
                     st.warning("Por favor coloque seu email.")
-                elif not '@' in email_create and not '.com' in email_create:
+                elif testeEmail(email_create) == False:
                     st.warning("Por favor coloque um email valido, como (exemplo@gmail.com).")
                 elif not nome:
                     st.warning("Por favor coloque seu nome.")
@@ -82,7 +82,7 @@ if tab_create:
                 else:
                     adicionar_usuario(nome, email_create, password_create)
                     registrar_email_em_log(email_create)
-                    st.success("Login created successfully!!!")
+                    st.success("Conta criada com sucesso!")
                     can_pass = True
 
 if can_pass != False:

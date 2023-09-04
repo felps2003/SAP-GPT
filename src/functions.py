@@ -1,7 +1,7 @@
 import json
 import pandas as pd
 import streamlit as st
-
+import re
 
 def adicionar_usuario(nome, email, senha):
     """
@@ -190,3 +190,11 @@ def obter_api():
     for usuario in data['usuarios']:
         if usuario.get('email') == email_alvo:
             return usuario.get('API')
+        
+
+def testeEmail(email):
+
+    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    if re.match(pattern, email):
+        return True
+    return False
