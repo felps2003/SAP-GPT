@@ -1,11 +1,9 @@
 import json
 import pandas as pd
 import streamlit as st
-<<<<<<< HEAD
 import openai
-=======
 import re
->>>>>>> refs/remotes/origin/main
+
 
 def adicionar_usuario(nome, email, senha):
     """
