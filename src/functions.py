@@ -1,7 +1,7 @@
 import json
 import pandas as pd
 import streamlit as st
-
+import openai
 
 def adicionar_usuario(nome, email, senha):
     """
@@ -190,3 +190,27 @@ def obter_api():
     for usuario in data['usuarios']:
         if usuario.get('email') == email_alvo:
             return usuario.get('API')
+        
+
+
+def return_produtos_df(produto):
+    prompt = "Escreva uma descricao para o produto {x}, que contenha detalhes do mesmo.".format(x = produto)
+    return {"produto": produto,
+            "descricao": get_response(prompt = prompt),}
+
+
+
+def get_response(prompt):
+    openai.api_key = obter_api()
+    model_engine = "text-davinci-003"
+    response = openai.Completion.create(
+        engine=model_engine,
+        prompt=prompt,
+        max_tokens=200,
+        temperature = 0.5,
+    )
+    return response.choices[0].text
+
+
+
+    
