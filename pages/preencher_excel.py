@@ -2,6 +2,7 @@ import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
 from src.functions import *
 import pandas as pd
+import time
 
 
 
@@ -44,6 +45,7 @@ with coluna1:
 with coluna2:
     uploaded_files = st.file_uploader("", accept_multiple_files=True)
 
+st.markdown('---')
 for uploaded_file in uploaded_files:
     bytes_data = uploaded_file.read()
     st.write("Nome do arquivo:", uploaded_file.name)
@@ -62,10 +64,20 @@ for uploaded_file in uploaded_files:
                                 nome = df.loc[i,coluna]
                                 descricao = get_response(f"Escreva uma descricao para o produto (em apenas 10 palavras): {nome}")
                                 df.loc[i,'Descricao'] = descricao
+                                time.sleep(30)
                             st.dataframe(df)
 
-                        excel = df.to_csv(sep=";").encode('utf-8')
-                        st.download_button(label = "Baixar o Excel", data = excel, file_name = f'{uploaded_file.name}_descricao.csv')
+                        csv = df.to_csv(sep=";").encode('utf-8')
+                        df = df.to_excel(df)
+                        nome = st.text_input('*Nome do excel')
+                        botao = st.button('Adicionar')
+                        if botao:
+                            if nome != '':
+                                coluna, dados = ler_dataframe_e_converter(df)
+                                adicionar_dataframe_para_email(nome,coluna,dados)
+                                st.success('Foi adicionado com sucesso')
+                        st.download_button(label = "Baixar o Excel", data = csv, file_name = f'{uploaded_file.name}_descricao.csv')
+                        
 
                     except Exception as e:
                         st.error(f'Ocorreu um erro com o Chat GPT: {e}')

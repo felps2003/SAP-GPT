@@ -1,13 +1,1 @@
-{
-    "usuarios": [
-        {
-            "Nome": "Henrico",
-            "email": "henrico.mail@mail.com",
-            "senha": "senha12345",
-            "dataframes": 0,
-            "requests API": 0,
-            "acessos": 0,
-            "API": "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"
-        }
-    ]
-}
+{"usuarios": [{"Nome": "Henrico", "email": "henrico.mail@mail.com", "senha": "senha12345", "dataframes": 0, "requests API": 0, "acessos": 0, "API": "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"}, {"Nome": "Felype Nunes de Souza", "email": "felypenunes2010@gmail.com", "senha": "1234", "dataframes": 1, "requests API": 0, "acessos": 1, "API": "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"}]}

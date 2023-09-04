@@ -112,7 +112,7 @@ def ler_dataframe_e_converter(df, sheet_name=None):
     
 
 
-def adicionar_dataframe_para_email(email, dataframe_id, colunas, dados):
+def adicionar_dataframe_para_email(dataframe_id, colunas, dados):
     """
     Procura o email da pessoa dentro do JSON e adiciona um novo dataframe
     à lista de dataframes correspondente ao email encontrado.
@@ -128,6 +128,8 @@ def adicionar_dataframe_para_email(email, dataframe_id, colunas, dados):
               False se o email não for encontrado.
 
     """
+
+    email = consultar_email_em_log()
     with open("db/dataframes.json", "r") as file:
         data = json.load(file)
 
@@ -152,7 +154,7 @@ def adicionar_dataframe_para_email(email, dataframe_id, colunas, dados):
                 if usuario["email"] == email:
                     usuario["dataframes"] += 1
                     with open("db/usuarios.json", "w") as arquivo:
-                        json.dump(data, arquivo)
+                        json.dump(data, arquivo, indent=4)
                     return True
         
     return False

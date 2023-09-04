@@ -32,7 +32,7 @@ for uploaded_file in uploaded_files:
         email = consultar_email_em_log()
         nome_tabela = st.text_input("Nome da Tabela")
         if st.button("Adicionar novo Excel"):
-            adicionar = adicionar_dataframe_para_email(email, nome_tabela, teste[0], teste[1])
+            adicionar = adicionar_dataframe_para_email(nome_tabela, teste[0], teste[1])
             if adicionar == True:
                 st.success('Tabela adicionada com sucesso')
             else: 
