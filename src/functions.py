@@ -1,7 +1,11 @@
 import json
 import pandas as pd
 import streamlit as st
+<<<<<<< HEAD
 import openai
+=======
+import re
+>>>>>>> refs/remotes/origin/main
 
 def adicionar_usuario(nome, email, senha):
     """
@@ -192,6 +196,7 @@ def obter_api():
             return usuario.get('API')
         
 
+<<<<<<< HEAD
 
 def return_produtos_df(produto):
     prompt = "Escreva uma descricao para o produto {x}, que contenha detalhes do mesmo.".format(x = produto)
@@ -214,3 +219,11 @@ def get_response(prompt):
 
 
     
+=======
+def testeEmail(email):
+
+    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    if re.match(pattern, email):
+        return True
+    return False
+>>>>>>> refs/remotes/origin/main

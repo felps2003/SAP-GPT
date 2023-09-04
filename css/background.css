@@ -1,0 +1,108 @@
+
+
+.main.css-uf99v8.e1g8pov65{
+    background: #0cc0df;
+}
+
+
+
+  
+  .main.css-uf99v8.e1g8pov65 {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(-45deg, rgba(12, 192, 223,0.8) 25%, transparent 25%, transparent 50%, rgba(12, 192, 223, 0.8) 50%, rgba(12, 192, 223, 0.8) 75%, transparent 75%, transparent);
+    background-size: 200% 200%;
+    animation: gradientAnimation 6s linear infinite  ;
+  }
+  .css-1avcm0n.e13qjvis2{
+    display: none;
+  }
+
+  .css-1p05t8e.en8akda1{
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 10px 10px 10px 10px;
+  }
+#tabs-bui3-tab-0{
+    background-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.3);
+    color: black;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#tabs-bui3-tab-0:hover {
+    background: transparent;
+    color: white;
+  }
+
+
+  #tabs-bui3-tab-0:active {
+    color: #0cc0df;
+  }
+
+  [data-baseweb="tab-highlight"] {
+    background-color: #ffff;
+  }
+
+  #tabs-bui3-tab-1{
+    background-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.3);
+    color: black;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#tabs-bui3-tab-1:hover {
+    background: transparent;
+    color: white;
+  }
+
+
+  #tabs-bui3-tab-1:active {
+    color: #0cc0df;
+  }
+  button {
+    width: 100px;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    font-size: 30px !important;
+
+    transition: background-color 0.3s, color 0.3s; /* Adicionando transições suaves */
+  }
+  
+  button:hover {
+    background: transparent;
+    color: blue;
+  }
+  
+  button:active {
+    color: blue;
+  }
+  .css-b3z5c9.e1ewe7hr5{
+    width: 100px;
+    height: 50px;
+    border-radius: 10px;
+    font-size: 30px !important;
+
+  }
+  .css-b3z5c9.e1ewe7hr5:hover{
+    background: transparent;
+    border-color: rgb(143, 143, 143);
+    color: rgb(255, 255, 255);
+  }
+  .css-b3z5c9.e1ewe7hr5:hover:active {
+    color: rgb(143, 143, 143);
+  }
+  .css-b3z5c9:focus:not(:active) {
+    border-color: white;
+    color: white;
+}
+  @keyframes gradientAnimation {
+    0% {
+      background-position: 0% 0%;
+    }
+    100% {
+      background-position: 100% 100%;
+    }
+  }
+  
