@@ -197,8 +197,8 @@ def obter_api():
 
 def return_produtos_df(produto):
     prompt = "Escreva uma descricao para o produto {x}, que contenha detalhes do mesmo.".format(x = produto)
-    return {"produto": produto,
-            "descricao": get_response(prompt = prompt),}
+    return {"Produto": produto,
+            "Descrição": get_response(prompt = prompt),}
 
 
 def get_response(prompt):
@@ -207,7 +207,7 @@ def get_response(prompt):
     response = openai.Completion.create(
         engine=model_engine,
         prompt=prompt,
-        max_tokens=200,
+        max_tokens=100,
         temperature = 0.5,
     )
     return response.choices[0].text
@@ -220,3 +220,5 @@ def testeEmail(email):
     return False
 
 
+def excel_to_df(excel_path):
+    return pd.read_excel(excel_path)

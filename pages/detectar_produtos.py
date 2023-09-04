@@ -83,7 +83,9 @@ import tensorflow as tf
 from PIL import Image
 import numpy as np
 from keras.applications.vgg16 import preprocess_input
-from src.functions import return_produtos_df
+from src.functions import *
+import pandas as pd
+
 
 
 col_project_name, col_img  = st.columns([3, 1])
@@ -164,7 +166,6 @@ elif f_v == "Foto":
                 st.success("{:.0f}% Coca, {:.0f}% Fanta".format(coca_conf, fanta_conf))
             else:
                 st.success("{:.0f}% Coca, {:.0f}% Fanta".format(coca_conf, fanta_conf))
-            
 
 
 if ("coca_conf" in globals()) and ("coca_conf" in globals()):
@@ -172,8 +173,16 @@ if ("coca_conf" in globals()) and ("coca_conf" in globals()):
     if coca_conf > fanta_conf:
         dicionario_gpt = return_produtos_df("Refrigerante Coca Cola")
         st.success(dicionario_gpt)
+        df = excel_to_df("/Users/henricobela/Desktop/Estudos/Challenge/SAP-GPT/db/produtos.xlsx")
+        df = pd.concat([df, pd.DataFrame(dicionario_gpt, index = [len(dicionario_gpt)])], axis = 0)
+        st.dataframe(df)
+        df.to_excel("/Users/henricobela/Desktop/Estudos/Challenge/SAP-GPT/db/produtos.xlsx", index = False)    
     else:
-        dicionario_gpt = return_produtos_df("Refrigerante Fanta")
+        dicionario_gpt = return_produtos_df("Refrigerante Fanta Laranja")
         st.success(dicionario_gpt)
+        df = excel_to_df("/Users/henricobela/Desktop/Estudos/Challenge/SAP-GPT/db/produtos.xlsx")
+        df = pd.concat([df, pd.DataFrame(dicionario_gpt, index = [len(dicionario_gpt)])], axis = 0)
+        st.dataframe(df)
+        df.to_excel("/Users/henricobela/Desktop/Estudos/Challenge/SAP-GPT/db/produtos.xlsx", index = False) 
 else:
     st.warning("Prediçao ainda não realizada")
