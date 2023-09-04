@@ -177,6 +177,50 @@ def atualizar_chave_api(nova_chave_api):
         json.dump(data, arquivo, indent=4)
 
 
+def acesso():
+    email_alvo = consultar_email_em_log()
+    """
+    Esta função atualiza a chave 'Token' de um usuário em um arquivo JSON,
+    desde que o email desse usuário corresponda ao email alvo. Após isso 
+    adiciona mais um acesso ao projeto.
+
+    """
+    with open("db/usuarios.json", 'r') as arquivo:
+        data = json.load(arquivo)
+
+    for usuario in data['usuarios']:
+        if usuario.get('email') == email_alvo:
+            usuario['acessos'] = usuario['acessos'] + 1
+
+    with open("db/usuarios.json", 'w') as arquivo:
+        json.dump(data, arquivo, indent=4)
+
+
+def dataframes_num(escolha):
+    email_alvo = consultar_email_em_log()
+    """
+    Esta função atualiza a chave 'Token' de um usuário em um arquivo JSON,
+    desde que o email desse usuário corresponda ao email alvo.
+
+    :param escolha: retorna um booleano com a escolha de apagar ou adicionar df
+    """
+    with open("db/usuarios.json", 'r') as arquivo:
+        data = json.load(arquivo)
+
+    for usuario in data['usuarios']:
+        if usuario.get('email') == email_alvo:
+                if escolha == True:
+                    if usuario['dataframes'] < 5:
+                        usuario['dataframes'] = usuario['dataframes'] + 1
+                    else:
+                        return False
+                elif escolha == False:
+                    usuario['dataframes'] = usuario['dataframes'] - 1
+    with open("db/usuarios.json", 'w') as arquivo:
+        json.dump(data, arquivo, indent=4)
+    return True
+
+
 def obter_api():
     email_alvo = consultar_email_em_log()
     """
@@ -220,3 +264,18 @@ def testeEmail(email):
     return False
 
 
+def contagem_de_dashboards():
+    email_alvo = consultar_email_em_log()
+    """
+    Esta função atualiza a chave 'Token' de um usuário em um arquivo JSON,
+    desde que o email desse usuário corresponda ao email alvo. Após isso 
+    adiciona mais um acesso ao projeto.
+
+    """
+
+    with open("db/usuarios.json", 'r') as arquivo:
+        data = json.load(arquivo)
+
+    for usuario in data['usuarios']:
+        if usuario.get('email') == email_alvo:
+            return  usuario['dataframes']

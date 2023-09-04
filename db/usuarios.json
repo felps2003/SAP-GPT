@@ -1,22 +1,6 @@
 {
     "usuarios": [
         {
-            "Nome": "Felps",
-            "email": "admin",
-            "senha": "admin",
-            "dataframes": 1,
-            "requests API": 0,
-            "acessos": 0
-        },
-        {
-            "Nome": "Henri",
-            "email": "henrico@gmail.com",
-            "senha": "1234",
-            "dataframes": 3,
-            "requests API": 0,
-            "acessos": 0
-        },
-        {
             "Nome": "Henrico",
             "email": "henrico.mail@mail.com",
             "senha": "senha12345",
@@ -24,51 +8,6 @@
             "requests API": 0,
             "acessos": 0,
             "API": "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"
-        },
-        {
-            "Nome": "Felype Nunes de Souza",
-            "email": "felypenunes2010@gmail.com",
-            "senha": "#Fn08081998",
-            "dataframes": 0,
-            "requests API": 0,
-            "acessos": 0,
-            "API": "batata"
-        },
-        {
-            "Nome": "Felype Nunes de Souza",
-            "email": "felypenunes1998@gmail.com",
-            "senha": "1234",
-            "dataframes": 0,
-            "requests API": 0,
-            "acessos": 0,
-            "API": "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"
-        },
-        {
-            "Nome": "Valter professor",
-            "email": "valter@gmail.com",
-            "senha": "1234",
-            "dataframes": 0,
-            "requests API": 0,
-            "acessos": 0,
-            "API": "iafhsjlfgoahdfjlahfha"
-        },
-        {
-            "Nome": "Felype N.S.",
-            "email": "felypenunes1998@gmail.com",
-            "senha": "08081998",
-            "dataframes": 0,
-            "requests API": 0,
-            "acessos": 0,
-            "API": "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"
-        },
-        {
-            "Nome": "Felype NS",
-            "email": "felypenunes1998@gmail.com",
-            "senha": "08081998",
-            "dataframes": 0,
-            "requests API": 0,
-            "acessos": 0,
-            "API": "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"
         }
     ]
 }

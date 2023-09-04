@@ -1,9 +1,1 @@
-<<<<<<< HEAD
 henrico.mail@mail.com
-=======
-<<<<<<< HEAD
-henrico.mail@mail.com
-=======
-felypenunes1998@gmail.com
->>>>>>> refs/remotes/origin/main
->>>>>>> 62ea0c6f0502340bb09e15449d069e9fe02c4e1c

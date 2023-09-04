@@ -1,6 +1,6 @@
 import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
-from src.modelo_gpt import get_response
+from src.functions import *
 import pandas as pd
 
 
@@ -17,8 +17,33 @@ st.markdown(
     """,
     unsafe_allow_html = True)
 
+col1, col2, col3 = st.columns(3)
 
-uploaded_files = st.file_uploader("Enviar Excel", accept_multiple_files=True)
+with col1:
+    if st.button("Voltar"):
+        switch_page("main")
+
+with col2:
+    st.text("Contagem de dashboard's")
+    st.title(contagem_de_dashboards())
+
+with col3:
+    st.text('Chave API')
+    if obter_api() == '':
+        st.error('Desativado')
+    else:
+        st.success('Ativo')
+
+st.markdown('---')
+
+coluna1, coluna2 = st.columns(2)
+
+with coluna1:
+    st.header('Enviar planilha')
+
+with coluna2:
+    uploaded_files = st.file_uploader("", accept_multiple_files=True)
+
 for uploaded_file in uploaded_files:
     bytes_data = uploaded_file.read()
     st.write("Nome do arquivo:", uploaded_file.name)

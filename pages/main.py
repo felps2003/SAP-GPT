@@ -24,17 +24,17 @@ col_img.image("util/imgs/logo.png")
 col_project_name.header("Challenge SAP")
 st.markdown("---", unsafe_allow_html = True)
 
-
-api_column, botao_column  = st.columns([3, 1])
-with api_column:
-    api = st.text_input("Token pessoal do Openai",type="password")
-with botao_column:
-    adicionar = st.button("adicionar novo token")
-    if adicionar:
-        atualizar_chave_api(api)
-        st.success('API adicionada com sucesso')
-        api = ''
-        st.experimental_rerun()
+with st.expander("Atualizar chave pessoal"):
+    api_column, botao_column  = st.columns([3, 1])
+    with api_column:
+        api = st.text_input("Token pessoal do Openai",type="password")
+    with botao_column:
+        adicionar = st.button("adicionar novo token")
+        if adicionar:
+            atualizar_chave_api(api)
+            st.success('API adicionada com sucesso')
+            api = ''
+            st.experimental_rerun()
 
 
 
