@@ -171,9 +171,9 @@ if ("coca_conf" in globals()) and ("coca_conf" in globals()):
     st.success(f"Coca {coca_conf}, Fanta {fanta_conf}")
     if coca_conf > fanta_conf:
         dicionario_gpt = return_produtos_df("Refrigerante Coca Cola")
-        st.success(**dicionario_gpt)
+        st.success(dicionario_gpt)
     else:
         dicionario_gpt = return_produtos_df("Refrigerante Fanta")
-        st.success(**dicionario_gpt)
+        st.success(dicionario_gpt)
 else:
     st.warning("Prediçao ainda não realizada")

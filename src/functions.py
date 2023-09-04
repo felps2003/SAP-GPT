@@ -201,7 +201,6 @@ def return_produtos_df(produto):
             "descricao": get_response(prompt = prompt),}
 
 
-
 def get_response(prompt):
     openai.api_key = obter_api()
     model_engine = "text-davinci-003"
