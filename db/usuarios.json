@@ -41,7 +41,7 @@
             "dataframes": 0,
             "requests API": 0,
             "acessos": 0,
-            "API": "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"
+            "API": "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"
         },
         {
             "Nome": "Valter professor",
@@ -51,6 +51,24 @@
             "requests API": 0,
             "acessos": 0,
             "API": "iafhsjlfgoahdfjlahfha"
+        },
+        {
+            "Nome": "Felype N.S.",
+            "email": "felypenunes1998@gmail.com",
+            "senha": "08081998",
+            "dataframes": 0,
+            "requests API": 0,
+            "acessos": 0,
+            "API": "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"
+        },
+        {
+            "Nome": "Felype NS",
+            "email": "felypenunes1998@gmail.com",
+            "senha": "08081998",
+            "dataframes": 0,
+            "requests API": 0,
+            "acessos": 0,
+            "API": "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"
         }
     ]
 }
