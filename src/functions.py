@@ -264,10 +264,10 @@ def testeEmail(email):
     return False
 
 
-<<<<<<< HEAD
 def excel_to_df(excel_path):
     return pd.read_excel(excel_path)
-=======
+
+
 def contagem_de_dashboards():
     email_alvo = consultar_email_em_log()
     """
@@ -283,4 +283,3 @@ def contagem_de_dashboards():
     for usuario in data['usuarios']:
         if usuario.get('email') == email_alvo:
             return  usuario['dataframes']
->>>>>>> refs/remotes/origin/main

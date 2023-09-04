@@ -18,8 +18,8 @@ st.markdown(
 col_project_name, col_img  = st.columns([3, 1])
 col_img.image("util/imgs/logo.png")
 col_project_name.header("Challenge SAP")
-if st.button("Tela Inicial"):
-    switch_page("app")
+if st.button("Voltar"):
+    switch_page("main")
 st.markdown("---", unsafe_allow_html = True)
 
 col_data1, col_data2, col_data3 = st.columns([1, 1, 1])
