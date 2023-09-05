@@ -104,7 +104,7 @@ TH_CONFIDENCE = 0.1
 if f_v == "Video":
     run = st.checkbox("Run")
     FRAME_WINDOW = st.image([])
-    cap = cv2.VideoCapture(1)
+    cap = cv2.VideoCapture(0)
     
 
     while run:
@@ -172,14 +172,14 @@ if ("coca_conf" in globals()) and ("coca_conf" in globals()):
     st.success(f"Coca {coca_conf}, Fanta {fanta_conf}")
     if coca_conf > fanta_conf:
         dicionario_gpt = return_produtos_df("Refrigerante Coca Cola")
-        st.success(dicionario_gpt)
+        # st.success(dicionario_gpt)
         df = excel_to_df("/Users/henricobela/Desktop/Estudos/Challenge/SAP-GPT/db/produtos.xlsx")
         df = pd.concat([df, pd.DataFrame(dicionario_gpt, index = [len(dicionario_gpt)])], axis = 0)
         st.dataframe(df)
         df.to_excel("/Users/henricobela/Desktop/Estudos/Challenge/SAP-GPT/db/produtos.xlsx", index = False)    
     else:
         dicionario_gpt = return_produtos_df("Refrigerante Fanta Laranja")
-        st.success(dicionario_gpt)
+        # st.success(dicionario_gpt)
         df = excel_to_df("/Users/henricobela/Desktop/Estudos/Challenge/SAP-GPT/db/produtos.xlsx")
         df = pd.concat([df, pd.DataFrame(dicionario_gpt, index = [len(dicionario_gpt)])], axis = 0)
         st.dataframe(df)
