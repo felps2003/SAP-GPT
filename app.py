@@ -24,7 +24,7 @@ st.markdown(
     unsafe_allow_html = True)
 col_project_name, col_img  = st.columns([3, 1])
 col_img.image("util/imgs/logo.png")
-col_project_name.header("Challenge SAP")
+col_project_name.header("SAP Horus")
 st.markdown("---", unsafe_allow_html = True)
 
 
