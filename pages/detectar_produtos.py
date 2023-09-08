@@ -89,6 +89,19 @@ from streamlit_extras.switch_page_button import switch_page
 
 
 
+st.markdown(
+    """
+        <style>
+            [data-testid="collapsedControl"] {
+                display: none
+            }
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+        </style>
+    """,
+    unsafe_allow_html = True)
+
+
 
 col_project_name, col_img, button_back  = st.columns([3, 1, 1])
 col_img.image("util/imgs/logo.png")
