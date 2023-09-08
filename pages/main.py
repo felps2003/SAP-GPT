@@ -6,7 +6,7 @@ import pandas as pd
 
 st.set_page_config(initial_sidebar_state = "collapsed",
                    page_icon = "util/imgs/logo.png",
-                   page_title = "Challenge NoName")
+                   page_title = "SAP Horus NoName")
 
 st.markdown(
     """
@@ -21,8 +21,10 @@ st.markdown(
     unsafe_allow_html = True)
 col_project_name, col_img  = st.columns([3, 1])
 col_img.image("util/imgs/logo.png")
-col_project_name.header("Challenge SAP")
+col_project_name.header("SAP Horus")
 st.markdown("---", unsafe_allow_html = True)
+
+email_log = consultar_email_em_log()
 
 with st.expander("Atualizar chave pessoal"):
     api_column, botao_column  = st.columns([3, 1])
@@ -49,6 +51,5 @@ elif st.button("Adicionar excel"):
 elif st.button("Sair"):
     switch_page("app")
 
-
-
-st.dataframe(get_user_dataframes())
+with st.expander(f"Databases do Usuario: {email_log}"):
+    st.dataframe(get_user_dataframes(), use_container_width = True)

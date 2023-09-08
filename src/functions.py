@@ -302,12 +302,16 @@ def get_user_dataframes():
     with open("db/dataframes.json", "r") as file:
         data = json.load(file)
 
-    for base in data["bases"]:
+    for i, base in enumerate(data[0]["bases"]):
         if base["email"] == email:
-            list_df.append(base["dataframes"])
-     
-    
-    df_all = pd.concat(list_df)
+            new_df = {
+                "id": base["dataframes"][0]["id"],
+                "colunas": base["dataframes"][0]["colunas"],
+                "dados": base["dataframes"][0]["dados"],
+            }
+            # list_df.append(pd.DataFrame(base["dataframes"]))
+            list_df.append(pd.DataFrame(columns = new_df["colunas"], data = new_df["dados"]))
+    df_all = pd.concat(list_df).reset_index(drop = True)
     return df_all
 
         
