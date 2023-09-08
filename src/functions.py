@@ -133,30 +133,37 @@ def adicionar_dataframe_para_email(dataframe_id, colunas, dados):
     with open("db/dataframes.json", "r") as file:
         data = json.load(file)
 
-    for usuario in data["bases"]:
-        email_para_teste = str(usuario["email"]).lower()
-        email = str(email).lower()
-        st.warning(email_para_teste+'/'+email)
-        if email_para_teste == email:
-            dataframes = usuario.get("dataframes", [])
-            novo_dataframe = {
-                "id": dataframe_id,
-                "colunas": colunas,
-                "dados": dados
-            }
-            dataframes.append(novo_dataframe)
-            usuario["dataframes"] = dataframes
-            with open("db/dataframes.json", "w") as file:
-                json.dump(data,file) 
-            with open("db/usuarios.json", "r") as file:
-                data = json.load(file)
-            for usuario in data["usuarios"]:
-                if usuario["email"] == email:
-                    usuario["dataframes"] += 1
-                    with open("db/usuarios.json", "w") as arquivo:
-                        json.dump(data, arquivo, indent=4)
-                    return True
-        
+    with open("db/usuarios.json", "r") as users_data:
+        users = json.load(users_data)
+
+    for user in users["usuarios"]:
+        email_para_teste = str(user["email"]).lower()
+        for usuario in data["bases"]:
+            # email_para_teste = str(usuario["email"]).lower()
+            email = str(email).lower()
+            st.warning(email_para_teste+'/'+email)
+            if email_para_teste == email:
+                dataframes = usuario.get("dataframes", [])
+                novo_dataframe = {
+                    "email": email,
+                    "dataframes": [{
+                        "id": dataframe_id,
+                        "colunas": colunas,
+                        "dados": dados}],
+                }
+                dataframes.append(novo_dataframe)
+                usuario["dataframes"] = dataframes
+                with open("db/dataframes.json", "w") as file:
+                    json.dump(data,file) 
+                with open("db/usuarios.json", "r") as file:
+                    data = json.load(file)
+                for usuario in data["usuarios"]:
+                    if usuario["email"] == email:
+                        usuario["dataframes"] += 1
+                        with open("db/usuarios.json", "w") as arquivo:
+                            json.dump(data, arquivo, indent=4)
+                        return True
+            
     return False
 
 
@@ -242,7 +249,7 @@ def obter_api():
 
 
 def return_produtos_df(produto):
-    prompt = "Escreva uma descricao para o produto {x}, que contenha detalhes do mesmo.".format(x = produto)
+    prompt = "Escreva uma descricao para o produto {x}, que contenha detalhes do mesmo, como ingredientes, modo de preparo e popularidade no Brasil".format(x = produto)
     return {"Produto": produto,
             "Descrição": get_response(prompt = prompt),}
 
@@ -253,7 +260,7 @@ def get_response(prompt):
     response = openai.Completion.create(
         engine=model_engine,
         prompt=prompt,
-        max_tokens=100,
+        max_tokens=250,
         temperature = 0.5,
     )
     return response.choices[0].text

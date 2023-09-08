@@ -18,6 +18,8 @@ st.markdown(
     """,
     unsafe_allow_html = True)
 
+if st.button("Voltar"):
+    switch_page("main")
 
 uploaded_files = st.file_uploader("Enviar Excel", accept_multiple_files=True)
 for uploaded_file in uploaded_files:

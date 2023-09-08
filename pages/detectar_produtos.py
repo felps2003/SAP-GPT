@@ -85,13 +85,19 @@ import numpy as np
 from keras.applications.vgg16 import preprocess_input
 from src.functions import *
 import pandas as pd
+from streamlit_extras.switch_page_button import switch_page
 
 
 
-col_project_name, col_img  = st.columns([3, 1])
+
+col_project_name, col_img, button_back  = st.columns([3, 1, 1])
 col_img.image("util/imgs/logo.png")
 col_project_name.header("Deteccao de Coca ou Fanta")
 st.markdown("---", unsafe_allow_html = True)
+
+if button_back.button("Voltar para Tela Inicial"):
+    switch_page("main")
+
 
 st.info("Para iniciar a deteccao de objetos, por favor selecione o metodo de detecção de Objetos: Foto ou Video")
 
@@ -168,21 +174,24 @@ elif f_v == "Foto":
                 st.success("{:.0f}% Coca, {:.0f}% Fanta".format(coca_conf, fanta_conf))
 
 
-if ("coca_conf" in globals()) and ("coca_conf" in globals()):
-    st.success(f"Coca {coca_conf}, Fanta {fanta_conf}")
+if ("coca_conf" in globals()) and ("fanta_conf" in globals()):
+    st.header("Previsão realizada e inserida na base de dados!")
+    # st.success(f"Coca {coca_conf}, Fanta {fanta_conf}")
     if coca_conf > fanta_conf:
         dicionario_gpt = return_produtos_df("Refrigerante Coca Cola")
         # st.success(dicionario_gpt)
         df = excel_to_df("/Users/henricobela/Desktop/Estudos/Challenge/SAP-GPT/db/produtos.xlsx")
         df = pd.concat([df, pd.DataFrame(dicionario_gpt, index = [len(dicionario_gpt)])], axis = 0)
-        st.dataframe(df)
+        df['Descrição'] = df['Descrição'].str.replace('\n\n', '')
+        st.dataframe(df, use_container_width = True)
         df.to_excel("/Users/henricobela/Desktop/Estudos/Challenge/SAP-GPT/db/produtos.xlsx", index = False)    
     else:
         dicionario_gpt = return_produtos_df("Refrigerante Fanta Laranja")
         # st.success(dicionario_gpt)
         df = excel_to_df("/Users/henricobela/Desktop/Estudos/Challenge/SAP-GPT/db/produtos.xlsx")
         df = pd.concat([df, pd.DataFrame(dicionario_gpt, index = [len(dicionario_gpt)])], axis = 0)
-        st.dataframe(df)
+        df['Descrição'] = df['Descrição'].str.replace('\n\n', '')
+        st.dataframe(df, use_container_width = True)
         df.to_excel("/Users/henricobela/Desktop/Estudos/Challenge/SAP-GPT/db/produtos.xlsx", index = False) 
 else:
     st.warning("Prediçao ainda não realizada")
