@@ -192,19 +192,27 @@ if ("coca_conf" in globals()) and ("fanta_conf" in globals()):
     # st.success(f"Coca {coca_conf}, Fanta {fanta_conf}")
     if coca_conf > fanta_conf:
         dicionario_gpt = return_produtos_df("Refrigerante Coca Cola")
-        # st.success(dicionario_gpt)
-        df = excel_to_df("/Users/henricobela/Desktop/Estudos/Challenge/SAP-GPT/db/produtos.xlsx")
+        df = get_user_dataframes()
         df = pd.concat([df, pd.DataFrame(dicionario_gpt, index = [len(dicionario_gpt)])], axis = 0)
         df['Descrição'] = df['Descrição'].str.replace('\n\n', '')
         st.dataframe(df, use_container_width = True)
-        df.to_excel("/Users/henricobela/Desktop/Estudos/Challenge/SAP-GPT/db/produtos.xlsx", index = False)    
+        teste = ler_dataframe_e_converter(df)
+        adicionar = adicionar_dataframe_para_email("Coca Cola", teste[0], teste[1])
+        if adicionar == True:
+            st.success('Produto adicionado com sucesso')
+        else: 
+            st.error('Produto não adicionado')
     else:
         dicionario_gpt = return_produtos_df("Refrigerante Fanta Laranja")
-        # st.success(dicionario_gpt)
-        df = excel_to_df("/Users/henricobela/Desktop/Estudos/Challenge/SAP-GPT/db/produtos.xlsx")
+        df = get_user_dataframes()
         df = pd.concat([df, pd.DataFrame(dicionario_gpt, index = [len(dicionario_gpt)])], axis = 0)
         df['Descrição'] = df['Descrição'].str.replace('\n\n', '')
         st.dataframe(df, use_container_width = True)
-        df.to_excel("/Users/henricobela/Desktop/Estudos/Challenge/SAP-GPT/db/produtos.xlsx", index = False) 
+        teste = ler_dataframe_e_converter(df)
+        adicionar = adicionar_dataframe_para_email("Fanta Laranja", teste[0], teste[1])
+        if adicionar == True:
+            st.success('Produto adicionado com sucesso')
+        else: 
+            st.error('Produto não adicionado')
 else:
     st.warning("Prediçao ainda não realizada")
