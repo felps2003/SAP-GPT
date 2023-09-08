@@ -138,12 +138,12 @@ def adicionar_dataframe_para_email(dataframe_id, colunas, dados):
 
     for user in users["usuarios"]:
         email_para_teste = str(user["email"]).lower()
-        for usuario in data["bases"]:
+        for usuario in data:
             # email_para_teste = str(usuario["email"]).lower()
             email = str(email).lower()
             st.warning(email_para_teste+'/'+email)
             if email_para_teste == email:
-                dataframes = usuario.get("dataframes", [])
+                # dataframes = usuario.get("dataframes", [])
                 novo_dataframe = {
                     "email": email,
                     "dataframes": [{
@@ -151,8 +151,8 @@ def adicionar_dataframe_para_email(dataframe_id, colunas, dados):
                         "colunas": colunas,
                         "dados": dados}],
                 }
-                dataframes.append(novo_dataframe)
-                usuario["dataframes"] = dataframes
+                # dataframes.append(novo_dataframe)
+                usuario["bases"].append(novo_dataframe)
                 with open("db/dataframes.json", "w") as file:
                     json.dump(data,file) 
                 with open("db/usuarios.json", "r") as file:
@@ -292,3 +292,25 @@ def contagem_de_dashboards():
     for usuario in data['usuarios']:
         if usuario.get('email') == email_alvo:
             return  usuario['dataframes']
+
+
+
+def get_user_dataframes():
+    email = consultar_email_em_log()
+    list_df = []
+
+    with open("db/dataframes.json", "r") as file:
+        data = json.load(file)
+
+    for base in data["bases"]:
+        if base["email"] == email:
+            list_df.append(base["dataframes"])
+     
+    
+    df_all = pd.concat(list_df)
+    return df_all
+
+        
+
+
+

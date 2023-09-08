@@ -48,3 +48,7 @@ elif st.button("Adicionar excel"):
     switch_page("texte_excel")
 elif st.button("Sair"):
     switch_page("app")
+
+
+
+st.dataframe(get_user_dataframes())
