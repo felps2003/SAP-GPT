@@ -129,7 +129,8 @@ def adicionar_dataframe_para_email(dataframe_id, colunas, dados):
 
     """
 
-    email = consultar_email_em_log()
+    email = str(consultar_email_em_log()).lower()
+
     with open("db/dataframes.json", "r") as file:
         data = json.load(file)
 
@@ -138,31 +139,30 @@ def adicionar_dataframe_para_email(dataframe_id, colunas, dados):
 
     for user in users["usuarios"]:
         email_para_teste = str(user["email"]).lower()
-        for usuario in data:
-            # email_para_teste = str(usuario["email"]).lower()
-            email = str(email).lower()
-            st.warning(email_para_teste+'/'+email)
-            if email_para_teste == email:
-                # dataframes = usuario.get("dataframes", [])
-                novo_dataframe = {
-                    "email": email,
-                    "dataframes": [{
-                        "id": dataframe_id,
-                        "colunas": colunas,
-                        "dados": dados}],
-                }
-                # dataframes.append(novo_dataframe)
-                usuario["bases"].append(novo_dataframe)
-                with open("db/dataframes.json", "w") as file:
-                    json.dump(data,file) 
-                with open("db/usuarios.json", "r") as file:
-                    data = json.load(file)
-                for usuario in data["usuarios"]:
-                    if usuario["email"] == email:
-                        usuario["dataframes"] += 1
-                        with open("db/usuarios.json", "w") as arquivo:
-                            json.dump(data, arquivo, indent=4)
-                        return True
+        st.warning(email_para_teste+'/'+email)
+        if email_para_teste == email:
+            novo_dataframe = {
+                    "id": dataframe_id,
+                    "colunas": colunas,
+                    "dados": dados}
+            
+            for i in data[0]["bases"]:
+                if i["email"] == email:
+                    i["dataframes"].append(novo_dataframe)
+                    break
+
+    with open("db/dataframes.json", "w") as file:
+        json.dump(data,file) 
+
+    with open("db/usuarios.json", "r") as file:
+        data = json.load(file)
+
+    for usuario in data["usuarios"]:
+        if usuario["email"] == email:
+            usuario["dataframes"] += 1
+            with open("db/usuarios.json", "w") as arquivo:
+                json.dump(data, arquivo, indent=4)
+            return True
             
     return False
 
@@ -298,23 +298,36 @@ def contagem_de_dashboards():
 def get_user_dataframes():
     email = consultar_email_em_log()
     list_df = []
-
     with open("db/dataframes.json", "r") as file:
         data = json.load(file)
-
     for i, base in enumerate(data[0]["bases"]):
         if base["email"] == email:
-            new_df = {
-                "id": base["dataframes"][0]["id"],
-                "colunas": base["dataframes"][0]["colunas"],
-                "dados": base["dataframes"][0]["dados"],
-            }
-            # list_df.append(pd.DataFrame(base["dataframes"]))
-            list_df.append(pd.DataFrame(columns = new_df["colunas"], data = new_df["dados"]))
+            for df in base["dataframes"]:
+                new_df = {
+                    "id": df["id"],
+                    "colunas": df["colunas"],
+                    "dados": df["dados"]
+                }
+                list_df.append(pd.DataFrame(columns = new_df["colunas"], data = new_df["dados"]))
     df_all = pd.concat(list_df).reset_index(drop = True)
     return df_all
 
+
         
+def append_gpt_to_df_all(email, dados, id):
+    with open("db/dataframes.json", "r") as file:
+        data = json.load(file)
+    for i in data[0]["bases"]:
+        if i["email"] == email:
+            for dataframe in i["dataframes"]:
+                if dataframe["id"] == id:
+                    dataframe["dados"].append(*dados)
+    with open("db/dataframes.json", "w") as file:        
+        json.dump(data,file)
 
+         
+    
 
+    
+    
 

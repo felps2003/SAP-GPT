@@ -186,33 +186,25 @@ elif f_v == "Foto":
             else:
                 st.success("{:.0f}% Coca, {:.0f}% Fanta".format(coca_conf, fanta_conf))
 
+id = st.text_input("Digite o ID do Dataframe: ")
 
 if ("coca_conf" in globals()) and ("fanta_conf" in globals()):
     st.header("Previsão realizada e inserida na base de dados!")
-    # st.success(f"Coca {coca_conf}, Fanta {fanta_conf}")
     if coca_conf > fanta_conf:
         dicionario_gpt = return_produtos_df("Refrigerante Coca Cola")
-        df = get_user_dataframes()
-        df = pd.concat([df, pd.DataFrame(dicionario_gpt, index = [len(dicionario_gpt)])], axis = 0)
+        df = pd.DataFrame(dicionario_gpt, index = [len(dicionario_gpt)])
         df['Descrição'] = df['Descrição'].str.replace('\n\n', '')
         st.dataframe(df, use_container_width = True)
         teste = ler_dataframe_e_converter(df)
-        adicionar = adicionar_dataframe_para_email("Coca Cola", teste[0], teste[1])
-        if adicionar == True:
-            st.success('Produto adicionado com sucesso')
-        else: 
-            st.error('Produto não adicionado')
+        append_gpt_to_df_all(consultar_email_em_log(), teste[1], id)
+        
     else:
         dicionario_gpt = return_produtos_df("Refrigerante Fanta Laranja")
-        df = get_user_dataframes()
-        df = pd.concat([df, pd.DataFrame(dicionario_gpt, index = [len(dicionario_gpt)])], axis = 0)
+        df = pd.DataFrame(dicionario_gpt, index = [len(dicionario_gpt)])
         df['Descrição'] = df['Descrição'].str.replace('\n\n', '')
         st.dataframe(df, use_container_width = True)
         teste = ler_dataframe_e_converter(df)
-        adicionar = adicionar_dataframe_para_email("Fanta Laranja", teste[0], teste[1])
-        if adicionar == True:
-            st.success('Produto adicionado com sucesso')
-        else: 
-            st.error('Produto não adicionado')
+        append_gpt_to_df_all(consultar_email_em_log(), teste[1], id)
+        
 else:
     st.warning("Prediçao ainda não realizada")
