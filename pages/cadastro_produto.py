@@ -3,6 +3,10 @@ from streamlit_extras.switch_page_button import switch_page
 from src.modelo_gpt import get_response
 from src.functions import *
 
+st.set_page_config(initial_sidebar_state = "collapsed",
+                   page_icon = "util/imgs/logo-horus.png",
+                   page_title = "NoName")
+
 
 st.markdown(
     """
@@ -15,9 +19,12 @@ st.markdown(
         </style>
     """,
     unsafe_allow_html = True)
+
+
 col_project_name, col_img  = st.columns([3, 1])
 col_img.image("util/imgs/logo.png")
-col_project_name.header("Challenge SAP")
+col_project_name.image("./util/imgs/logo-horus.png", width = 200)
+col_project_name.subheader("Gerar descricao para um produto")
 if st.button("Voltar"):
     switch_page("main")
 st.markdown("---", unsafe_allow_html = True)

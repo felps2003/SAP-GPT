@@ -4,7 +4,9 @@ from src.functions import *
 import pandas as pd
 import time
 
-
+st.set_page_config(initial_sidebar_state = "collapsed",
+                   page_icon = "util/imgs/logo-horus.png",
+                   page_title = "NoName")
 
 st.markdown(
     """
@@ -17,6 +19,14 @@ st.markdown(
         </style>
     """,
     unsafe_allow_html = True)
+
+st.image("./util/imgs/logo-horus.png", width = 200)
+
+st.subheader("Preencher base de dados")
+
+st.markdown('---')
+
+
 
 col1, col2, col3 = st.columns(3)
 

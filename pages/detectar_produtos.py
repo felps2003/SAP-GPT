@@ -88,6 +88,9 @@ import pandas as pd
 from streamlit_extras.switch_page_button import switch_page
 
 
+st.set_page_config(initial_sidebar_state = "collapsed",
+                   page_icon = "util/imgs/logo-horus.png",
+                   page_title = "NoName")
 
 st.markdown(
     """
@@ -101,6 +104,7 @@ st.markdown(
     """,
     unsafe_allow_html = True)
 
+st.image("./util/imgs/logo-horus.png", width = 200)
 
 
 col_project_name, col_img, button_back  = st.columns([3, 1, 1])

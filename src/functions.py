@@ -139,7 +139,7 @@ def adicionar_dataframe_para_email(dataframe_id, colunas, dados):
 
     for user in users["usuarios"]:
         email_para_teste = str(user["email"]).lower()
-        st.warning(email_para_teste+'/'+email)
+        # st.warning(email_para_teste+'/'+email)
         if email_para_teste == email:
             novo_dataframe = {
                     "id": dataframe_id,
