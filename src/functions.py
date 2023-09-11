@@ -31,7 +31,7 @@ def adicionar_usuario(nome, email, senha):
 
     data["usuarios"].append(novo_usuario)
 
-    df["bases"].append(novo_df_usuario)
+    df[0]["bases"].append(novo_df_usuario)
 
     with open("db/usuarios.json", "w") as file:
         json.dump(data, file)
@@ -255,15 +255,19 @@ def return_produtos_df(produto):
 
 
 def get_response(prompt):
-    openai.api_key = obter_api()
-    model_engine = "text-davinci-003"
-    response = openai.Completion.create(
-        engine=model_engine,
-        prompt=prompt,
-        max_tokens=250,
-        temperature = 0.5,
-    )
-    return response.choices[0].text
+    try:
+        openai.api_key = obter_api()
+        model_engine = "text-davinci-003"
+        response = openai.Completion.create(
+            engine=model_engine,
+            prompt=prompt,
+            max_tokens=250,
+            temperature = 0.5,
+        )
+        response_choice = response.choices[0].text
+        return response_choice
+    except Exception as e:
+        st.warning(f"API do CHATGPT nao configurada. Erro: {e}")
 
 
 def testeEmail(email):

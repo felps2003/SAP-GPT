@@ -17,6 +17,15 @@
             "requests API": 0,
             "acessos": 1,
             "API": "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"
+        },
+        {
+            "Nome": "Emilia K.",
+            "email": "emilia.k@mail.com",
+            "senha": "senha123",
+            "dataframes": 0,
+            "requests API": 0,
+            "acessos": 1,
+            "API": ""
         }
     ]
 }

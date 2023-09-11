@@ -53,4 +53,7 @@ elif st.button("Sair"):
     switch_page("app")
 
 with st.expander(f"Databases do Usuario: {email_log}"):
-    st.dataframe(get_user_dataframes(), use_container_width = True)
+    try:
+        st.dataframe(get_user_dataframes(), use_container_width = True)
+    except:
+        st.warning("Este usuario ainda nao possui bases em seu cadastro!")
