@@ -66,6 +66,7 @@ for uploaded_file in uploaded_files:
             st.dataframe(df)
         with st.expander("Criar coluna de descrição"): 
             coluna = st.selectbox("Selecione o nome da coluna que contem os nomes dos produtos", options = df.columns)
+            time_sleep = st.slider('Quantidade de segundos entre as requisições', 0, 180, 60)
             if st.button("Gerar descrição"):
                 if coluna:
                     try:
@@ -75,7 +76,7 @@ for uploaded_file in uploaded_files:
                                 nome = df.loc[i,coluna]
                                 descricao = get_response(f"Escreva uma descricao para o produto (em apenas 10 palavras): {nome}")
                                 df.loc[i,'Descricao'] = descricao
-                                time.sleep(30)
+                                time.sleep(time_sleep)
                             st.dataframe(df)
 
                         csv = df.to_csv(sep=";").encode('utf-8')
