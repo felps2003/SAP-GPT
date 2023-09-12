@@ -4,7 +4,14 @@
     background: #0cc0df;
 }
 
-
+.main.css-uf99v8.ea3mdgi5{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(-45deg, rgba(12, 192, 223,0.8) 25%, transparent 25%, transparent 50%, rgba(12, 192, 223, 0.8) 50%, rgba(12, 192, 223, 0.8) 75%, transparent 75%, transparent);
+  background-size: 200% 200%;
+  animation: gradientAnimation 6s linear infinite  ;
+}
 
   
   .main.css-uf99v8.e1g8pov65 {
