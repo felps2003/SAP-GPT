@@ -109,14 +109,14 @@ st.image("./util/imgs/logo-horus.png", width = 200)
 
 col_project_name, col_img, button_back  = st.columns([3, 1, 1])
 col_img.image("util/imgs/logo.png")
-col_project_name.header("Deteccao de Coca ou Fanta")
+col_project_name.header("Detecção de Coca ou Fanta")
 st.markdown("---", unsafe_allow_html = True)
 
 if button_back.button("Voltar para Tela Inicial"):
     switch_page("main")
 
 
-st.info("Para iniciar a deteccao de objetos, por favor selecione o metodo de detecção de Objetos: Foto ou Video")
+st.info("Para iniciar a detecção de objetos, por favor selecione o metodo de detecção de Objetos: Foto ou Video")
 
 f_v = st.selectbox(options = ["Selecione", "Foto", "Video"], label = "Método de Detecção")
 
