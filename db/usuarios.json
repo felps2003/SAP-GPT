@@ -35,6 +35,24 @@
             "requests API": 0,
             "acessos": 1,
             "API": "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"
+        },
+        {
+            "Nome": "Calixto Gustavo",
+            "email": "calixto@sap.com.br",
+            "senha": "senha12345",
+            "dataframes": 1,
+            "requests API": 0,
+            "acessos": 1,
+            "API": "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"
+        },
+        {
+            "Nome": "usuario_nao_token",
+            "email": "user_nao_token@mail.com",
+            "senha": "123",
+            "dataframes": 0,
+            "requests API": 0,
+            "acessos": 1,
+            "API": ""
         }
     ]
 }

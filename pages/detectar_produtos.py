@@ -143,7 +143,7 @@ if f_v == "Video":
         print("{:.0f}% Coca, {:.0f}% Fanta".format(coca_conf, fanta_conf))
 
         label = "{:.0f}% Coca, {:.0f}% Fanta".format(coca_conf, fanta_conf)
-        img = cv2.putText(img, label, (50, 70), cv2.FONT_HERSHEY_SIMPLEX, 2, (255, 0, 0), 3)
+        img = cv2.putText(img, label, (50, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 3)
 
 
         FRAME_WINDOW.image(img)

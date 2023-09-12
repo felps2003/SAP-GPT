@@ -273,6 +273,14 @@
                             [
                                 "Refrigerante Coca Cola",
                                 "O Refrigerante Coca Cola \u00e9 um dos mais populares e amados refrigerantes do mundo. Ele \u00e9 produzido pela The Coca-Cola Company, que foi fundada em 1886. O refrigerante \u00e9 feito a partir de ingredientes simples, como \u00e1gua, a\u00e7\u00facar, \u00e1cido c\u00edtrico, cafe\u00edna, caramelo e ess\u00eancia de baunilha. \u00c9 produzido em diversos sabores, como cola cl\u00e1ssica, laranja, lim\u00e3o e uva. O refrigerante \u00e9 muito popular no Brasil e \u00e9 servido em restaurantes, lanchonetes e em muitas outras estabelecimentos. \u00c9 um dos refrigerantes mais vendidos no pa\u00eds. O refrigerante \u00e9 servido em lata, garrafa de vidro, garrafa pl\u00e1stica e em outras embalagens. \u00c9 muito saboroso e refrescante. \u00c9 uma \u00f3tima op\u00e7\u00e3o para refrescar-se e aproveitar o sabor \u00fa"
+                            ],
+                            [
+                                "Refrigerante Coca Cola",
+                                "O Refrigerante Coca Cola \u00e9 um dos refrigerantes mais populares no Brasil. \u00c9 produzido pela The Coca-Cola Company e cont\u00e9m \u00e1gua, a\u00e7\u00facar, g\u00e1s carb\u00f4nico, caramelo, fosfato de s\u00f3dio, \u00e1cido c\u00edtrico e outros ingredientes naturais. \u00c9 preparado por meio de um processo de mistura de ingredientes, que resulta em uma bebida refrescante e saborosa. \u00c9 muito popular entre os brasileiros, que o consomem em grandes quantidades. Al\u00e9m disso, \u00e9 tamb\u00e9m um dos refrigerantes mais vendidos no mundo."
+                            ],
+                            [
+                                "Refrigerante Fanta Laranja",
+                                "O Refrigerante Fanta Laranja \u00e9 um dos refrigerantes mais populares no Brasil. \u00c9 produzido pela empresa Coca-Cola e tem como ingredientes \u00e1gua, a\u00e7\u00facar, g\u00e1s carb\u00f4nico, \u00e1cido c\u00edtrico, aromas artificiais e corantes. \u00c9 um refresco de sabor c\u00edtrico e azedo, com um toque de laranja.O Refrigerante Fanta Laranja n\u00e3o precisa ser preparado, pois \u00e9 pronto para beber. Basta abrir a lata ou garrafa e desfrutar do sabor intenso e refrescante.O Refrigerante Fanta Laranja \u00e9 muito popular entre os brasileiros, pois \u00e9 refrescante, saboroso e tem um pre\u00e7o acess\u00edvel. \u00c9 ideal para tomar com lanches, petiscos ou como acompanhamento de refei\u00e7\u00f5es. \u00c9 tamb\u00e9m uma \u00f3tima op\u00e7\u00e3o para oc"
                             ]
                         ]
                     }
@@ -319,6 +327,34 @@
                         ]
                     }
                 ]
+            },
+            {
+                "email": "calixto@sap.com.br",
+                "dataframes": [
+                    {
+                        "id": "Produtos_SAP",
+                        "colunas": [
+                            "Nome Produto",
+                            "Descricao"
+                        ],
+                        "dados": [
+                            [
+                                "Batata", NaN
+                            ],
+                            [
+                                "Cenoura", NaN
+                            ],
+                            [
+                                "Refrigerante Fanta Laranja",
+                                "O Refrigerante Fanta Laranja \u00e9 um dos mais populares refrigerantes no Brasil. \u00c9 feito a partir de \u00e1gua gaseificada, a\u00e7\u00facar, \u00e1cido c\u00edtrico, aromatizantes naturais e artificiais, corantes e conservantes. Possui um sabor refrescante e doce de laranja, que \u00e9 extremamente popular entre os brasileiros. \u00c9 um dos refrigerantes mais vendidos no pa\u00eds. \u00c9 servido diretamente na lata ou em copos de vidro, e \u00e9 uma \u00f3tima op\u00e7\u00e3o para acompanhar qualquer refei\u00e7\u00e3o. \u00c9 um dos refrigerantes mais populares entre as crian\u00e7as, pois \u00e9 alegre e divertido. \u00c9 uma \u00f3tima op\u00e7\u00e3o para qualquer ocasi\u00e3o, seja no dia a dia ou em festas."
+                            ]
+                        ]
+                    }
+                ]
+            },
+            {
+                "email": "user_nao_token@mail.com",
+                "dataframes": []
             }
         ]
     }
