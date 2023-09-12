@@ -61,6 +61,7 @@ for uploaded_file in uploaded_files:
     st.write("Nome do arquivo:", uploaded_file.name)
     if uploaded_file:
         df = pd.read_excel(uploaded_file)
+        df.reset_index(drop = True, inplace = True)
         with st.expander("Seu arquivo"):    
             st.dataframe(df)
         with st.expander("Criar coluna de descrição"): 

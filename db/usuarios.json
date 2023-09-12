@@ -26,6 +26,15 @@
             "requests API": 0,
             "acessos": 1,
             "API": ""
+        },
+        {
+            "Nome": "SAP",
+            "email": "sap@gmail.com",
+            "senha": "senha12345",
+            "dataframes": 1,
+            "requests API": 0,
+            "acessos": 1,
+            "API": "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"
         }
     ]
 }
