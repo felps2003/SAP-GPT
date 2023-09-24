@@ -1,3 +1,12 @@
-streamlit==1.20.0
-openai==0.27.4
-streamlit_extras==0.2.7
+streamlit
+openai
+streamlit_extras
+opencv-python
+scikit-learn
+pandas
+numpy
+tensorflow
+keras
+torch
+ultralytics
+
