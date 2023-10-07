@@ -1,58 +1,12 @@
 {
     "usuarios": [
         {
-            "Nome": "Henrico",
-            "email": "henrico.mail@mail.com",
-            "senha": "senha12345",
-            "dataframes": 8,
+            "empresa": "BASF",
+            "email": "basf@gmail.com",
+            "senha": "12345",
+            "dataframes": 5,
             "requests API": 0,
-            "acessos": 0,
-            "API": "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"
-        },
-        {
-            "Nome": "Felype Nunes de Souza",
-            "email": "felypenunes2010@gmail.com",
-            "senha": "1234",
-            "dataframes": 1,
-            "requests API": 0,
-            "acessos": 1,
-            "API": "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"
-        },
-        {
-            "Nome": "Emilia K.",
-            "email": "emilia.k@mail.com",
-            "senha": "senha123",
-            "dataframes": 0,
-            "requests API": 0,
-            "acessos": 1,
-            "API": ""
-        },
-        {
-            "Nome": "SAP",
-            "email": "sap@gmail.com",
-            "senha": "senha12345",
-            "dataframes": 1,
-            "requests API": 0,
-            "acessos": 1,
-            "API": "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"
-        },
-        {
-            "Nome": "Calixto Gustavo",
-            "email": "calixto@sap.com.br",
-            "senha": "senha12345",
-            "dataframes": 1,
-            "requests API": 0,
-            "acessos": 1,
-            "API": "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"
-        },
-        {
-            "Nome": "usuario_nao_token",
-            "email": "user_nao_token@mail.com",
-            "senha": "123",
-            "dataframes": 0,
-            "requests API": 0,
-            "acessos": 1,
-            "API": ""
+            "acessos": 1
         }
     ]
 }

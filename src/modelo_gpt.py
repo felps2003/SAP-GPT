@@ -3,7 +3,7 @@ from src.functions import *
 
 # Chave Felype - GPT
 
-openai.api_key = obter_api()
+openai.api_key = "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"
     
 model_engine = "text-davinci-003"
 
