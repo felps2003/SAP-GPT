@@ -335,18 +335,15 @@ def get_user_dataframes():
 
 
         
-def append_gpt_to_df_all(email, dados, id):
+def append_gpt_to_df_all(email, dados):
     with open("db/dataframes.json", "r") as file:
         data = json.load(file)
     for i in data[0]["bases"]:
         if i["email"] == email:
-            for dataframe in i["dataframes"]:
-                if dataframe["id"] == id:
-                    dataframe["dados"].append(*dados)
+            i['dataframes'][0]["dados"].append(*dados)
     with open("db/dataframes.json", "w") as file:        
         json.dump(data,file)
-
-         
+    
     
 
 def make_predict(image):

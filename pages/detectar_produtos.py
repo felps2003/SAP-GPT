@@ -57,7 +57,6 @@ if f_v == "Video":
     FRAME_WINDOW = st.image([])
     cap = cv2.VideoCapture(0)
     
-
     while run:
         ret, image = cap.read()
         img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
@@ -93,8 +92,6 @@ elif f_v == "Foto":
             st.image(img, width = 400)
             st.success("{}".format(results["label"]))
 
-id = st.text_input("Digite o ID do Dataframe: ")
-
 if "results" in globals():
     st.header("Previsão realizada e inserida na base de dados!")
     dicionario_gpt = return_produtos_df(results["class"])
@@ -102,7 +99,7 @@ if "results" in globals():
     df['Descrição'] = df['Descrição'].str.replace('\n\n', '')
     st.dataframe(df, use_container_width = True)
     teste = ler_dataframe_e_converter(df)
-    append_gpt_to_df_all(consultar_email_em_log(), teste[1], id)
+    append_gpt_to_df_all(consultar_email_em_log(), teste[1])
         
         
 else:
