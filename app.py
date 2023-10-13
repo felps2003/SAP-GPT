@@ -62,7 +62,7 @@ if tab_create:
     with tab_create:
         placeholder_create = st.empty()
         with placeholder_create.form("create"):
-            nome = st.text_input("Nome")
+            empresa = st.text_input("Empresa")
             email_create = st.text_input("Email")
             password_create = st.text_input("Senha", type = "password")
             confirm_password = st.text_input("Confirmar senha", type = "password")
@@ -73,7 +73,7 @@ if tab_create:
                     st.warning("Por favor coloque seu email.")
                 elif testeEmail(email_create) == False:
                     st.warning("Por favor coloque um email valido, como (exemplo@gmail.com).")
-                elif not nome:
+                elif not empresa:
                     st.warning("Por favor coloque seu nome.")
                 elif not password_create:
                     st.warning("Por favor coloque sua senha.")
@@ -82,11 +82,11 @@ if tab_create:
                 elif password_create != confirm_password:
                     st.warning("Senhas nao coincidem!")
                 else:
-                    adicionar_usuario(nome, email_create, password_create)
+                    adicionar_usuario(empresa, email_create, password_create)
                     registrar_email_em_log(email_create)
                     st.success("Conta criada com sucesso!")
                     acesso()
-                    can_pass = True
+                    switch_page("adicionar_novo_df")
 
 if can_pass != False:
     switch_page("main")

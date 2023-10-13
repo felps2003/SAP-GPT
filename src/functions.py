@@ -5,7 +5,7 @@ import openai
 import re
 
 
-def adicionar_usuario(nome, email, senha):
+def adicionar_usuario(Empresa, email, senha):
     """
     Adiciona um novo usuário (email e senha) ao arquivo "db/usuarios.json".
 
@@ -19,15 +19,14 @@ def adicionar_usuario(nome, email, senha):
     with open("db/dataframes.json", "r") as file:
         df = json.load(file)
 
-    novo_usuario = {"Nome": nome,
+    novo_usuario = {"empresa": Empresa,
                     "email": email, 
                     "senha": senha, 
                     "dataframes": 0, 
                     "requests API": 0, 
-                    "acessos": 0, 
-                    "API": ''}
+                    "acessos": 0}
     
-    novo_df_usuario = {"email": email, "dataframes": []}
+    novo_df_usuario = {"email": email, "dataframes": [{"colunas": [],"dados": []}]}
 
     data["usuarios"].append(novo_usuario)
 
@@ -112,7 +111,7 @@ def ler_dataframe_e_converter(df, sheet_name=None):
     
 
 
-def adicionar_dataframe_para_email(dataframe_id, colunas, dados):
+def adicionar_dataframe_para_email(colunas, dados):
     """
     Procura o email da pessoa dentro do JSON e adiciona um novo dataframe
     à lista de dataframes correspondente ao email encontrado.
@@ -141,18 +140,15 @@ def adicionar_dataframe_para_email(dataframe_id, colunas, dados):
         email_para_teste = str(user["email"]).lower()
         # st.warning(email_para_teste+'/'+email)
         if email_para_teste == email:
-            novo_dataframe = {
-                    "id": dataframe_id,
-                    "colunas": colunas,
-                    "dados": dados}
             
             for i in data[0]["bases"]:
                 if i["email"] == email:
-                    i["dataframes"].append(novo_dataframe)
+                    i["dataframes"][0]["colunas"] = colunas
+                    i["dataframes"][0]["dados"] = dados
                     break
 
     with open("db/dataframes.json", "w") as file:
-        json.dump(data,file) 
+        json.dump(data,file, indent=4) 
 
     with open("db/usuarios.json", "r") as file:
         data = json.load(file)
@@ -167,23 +163,23 @@ def adicionar_dataframe_para_email(dataframe_id, colunas, dados):
     return False
 
 
-def atualizar_chave_api(nova_chave_api):
-    email_alvo = consultar_email_em_log()
-    """
-    Esta função atualiza a chave 'Token' de um usuário em um arquivo JSON,
-    desde que o email desse usuário corresponda ao email alvo.
+# def atualizar_chave_api(nova_chave_api):
+#     email_alvo = consultar_email_em_log()
+#     """
+#     Esta função atualiza a chave 'Token' de um usuário em um arquivo JSON,
+#     desde que o email desse usuário corresponda ao email alvo.
 
-    :param nova_chave_api: A nova chave 'Token' a ser atribuída.
-    """
-    with open("db/usuarios.json", 'r') as arquivo:
-        data = json.load(arquivo)
+#     :param nova_chave_api: A nova chave 'Token' a ser atribuída.
+#     """
+#     with open("db/usuarios.json", 'r') as arquivo:
+#         data = json.load(arquivo)
 
-    for usuario in data['usuarios']:
-        if usuario.get('email') == email_alvo:
-            usuario['API'] = nova_chave_api
+#     for usuario in data['usuarios']:
+#         if usuario.get('email') == email_alvo:
+#             usuario['API'] = nova_chave_api
 
-    with open("db/usuarios.json", 'w') as arquivo:
-        json.dump(data, arquivo, indent=4)
+#     with open("db/usuarios.json", 'w') as arquivo:
+#         json.dump(data, arquivo, indent=4)
 
 
 def acesso():
@@ -219,7 +215,7 @@ def dataframes_num(escolha):
     for usuario in data['usuarios']:
         if usuario.get('email') == email_alvo:
                 if escolha == True:
-                    if usuario['dataframes'] < 5:
+                    if usuario['dataframes'] == 0:
                         usuario['dataframes'] = usuario['dataframes'] + 1
                     else:
                         return False
@@ -230,21 +226,21 @@ def dataframes_num(escolha):
     return True
 
 
-def obter_api():
-    email_alvo = consultar_email_em_log()
-    """
-    Esta função busca a chave 'Token' de um usuário com base no email fornecido.
+# def obter_api():
+#     email_alvo = consultar_email_em_log()
+#     """
+#     Esta função busca a chave 'Token' de um usuário com base no email fornecido.
 
-    :param arquivo_json: O caminho para o arquivo JSON.
-    :param email_alvo: O email do usuário cuja chave 'Token' será obtida.
-    :return: A chave 'Token' do usuário ou None se o email não for encontrado.
-    """
-    with open("db/usuarios.json", 'r') as arquivo:
-        data = json.load(arquivo)
+#     :param arquivo_json: O caminho para o arquivo JSON.
+#     :param email_alvo: O email do usuário cuja chave 'Token' será obtida.
+#     :return: A chave 'Token' do usuário ou None se o email não for encontrado.
+#     """
+#     with open("db/usuarios.json", 'r') as arquivo:
+#         data = json.load(arquivo)
 
-    for usuario in data['usuarios']:
-        if usuario.get('email') == email_alvo:
-            return usuario.get('API')
+#     for usuario in data['usuarios']:
+#         if usuario.get('email') == email_alvo:
+#             return usuario.get('API')
         
 
 
@@ -256,12 +252,12 @@ def return_produtos_df(produto):
 
 def get_response(prompt):
     try:
-        openai.api_key = obter_api()
+        openai.api_key = "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"
         model_engine = "text-davinci-003"
         response = openai.Completion.create(
             engine=model_engine,
             prompt=prompt,
-            max_tokens=250,
+            max_tokens=150,
             temperature = 0.5,
         )
         response_choice = response.choices[0].text
@@ -284,10 +280,7 @@ def excel_to_df(excel_path):
 def contagem_de_dashboards():
     email_alvo = consultar_email_em_log()
     """
-    Esta função atualiza a chave 'Token' de um usuário em um arquivo JSON,
-    desde que o email desse usuário corresponda ao email alvo. Após isso 
-    adiciona mais um acesso ao projeto.
-
+ 
     """
 
     with open("db/usuarios.json", 'r') as arquivo:
@@ -297,6 +290,19 @@ def contagem_de_dashboards():
         if usuario.get('email') == email_alvo:
             return  usuario['dataframes']
 
+def nome_empresa():
+    email_alvo = consultar_email_em_log()
+    """
+
+
+    """
+
+    with open("db/usuarios.json", 'r') as arquivo:
+        data = json.load(arquivo)
+
+    for usuario in data['usuarios']:
+        if usuario.get('email') == email_alvo:
+            return  usuario['empresa']
 
 
 def get_user_dataframes():
@@ -306,14 +312,11 @@ def get_user_dataframes():
         data = json.load(file)
     for i, base in enumerate(data[0]["bases"]):
         if base["email"] == email:
-            for df in base["dataframes"]:
-                new_df = {
-                    "id": df["id"],
-                    "colunas": df["colunas"],
-                    "dados": df["dados"]
-                }
-                list_df.append(pd.DataFrame(columns = new_df["colunas"], data = new_df["dados"]))
-    df_all = pd.concat(list_df).reset_index(drop = True)
+            new_df = {
+                "colunas": base['dataframes'][0]["colunas"],
+                "dados": base['dataframes'][0]["dados"]
+            }
+    df_all = pd.DataFrame(columns = new_df["colunas"], data = new_df["dados"])
     return df_all
 
 
