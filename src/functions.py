@@ -3,6 +3,20 @@ import pandas as pd
 import streamlit as st
 import openai
 import re
+from keras.models import load_model 
+import cv2
+import math 
+import streamlit as st
+import os
+import tensorflow as tf
+from PIL import Image
+import numpy as np
+from keras.applications.vgg16 import preprocess_input
+from src.functions import *
+import pandas as pd
+from streamlit_extras.switch_page_button import switch_page
+from keras.models import load_model 
+
 
 
 def adicionar_usuario(Empresa, email, senha):
@@ -335,6 +349,31 @@ def append_gpt_to_df_all(email, dados, id):
          
     
 
-    
+def make_predict(image):
+    np.set_printoptions(suppress=True)
+    model = load_model("/Users/henricobela/Desktop/Estudos/Challenge/SAP-GPT/model/model/newmodel/keras_model.h5", compile=False)
+    class_names = open("/Users/henricobela/Desktop/Estudos/Challenge/SAP-GPT/model/model/newmodel/labels.txt", "r").readlines()
+    image = cv2.resize(image, (224, 224), interpolation=cv2.INTER_AREA)
+    image = np.asarray(image, dtype=np.float32).reshape(1, 224, 224, 3)
+    image = (image / 127.5) - 1
+
+    prediction = model.predict(image)
+    index = np.argmax(prediction)
+    class_name = class_names[index]
+    confidence_score = prediction[0][index]
+
+    # print("Class:", class_name[2:], end="")
+    # print("Confidence Score:", str(np.round(confidence_score * 100))[:-2], "%")
+
+    label = "Produto: {}\nConf: {}%".format(class_name[2:], str(np.round(confidence_score * 100))[:-2])
+
+    results = {
+        "class": class_name[2:],
+        "score": str(np.round(confidence_score * 100))[:-2],
+        "label": label
+    }
+
+    return results
+
     
 
