@@ -128,18 +128,7 @@ def ler_dataframe_e_converter(df, sheet_name=None):
 
 def adicionar_dataframe_para_email(colunas, dados):
     """
-    Procura o email da pessoa dentro do JSON e adiciona um novo dataframe
-    à lista de dataframes correspondente ao email encontrado.
 
-    Args:
-        email (str): O email da pessoa para o qual o dataframe será adicionado.
-        dataframe_id (str): O nome do dataframe a ser adicionado.
-        colunas (list): Lista contendo o nome das colunas do dataframe.
-        dados (list): Lista de listas contendo os dados do dataframe.
-
-    Returns:
-        bool: True se o email for encontrado e o dataframe for adicionado,
-              False se o email não for encontrado.
 
     """
 
@@ -178,24 +167,6 @@ def adicionar_dataframe_para_email(colunas, dados):
     return False
 
 
-# def atualizar_chave_api(nova_chave_api):
-#     email_alvo = consultar_email_em_log()
-#     """
-#     Esta função atualiza a chave 'Token' de um usuário em um arquivo JSON,
-#     desde que o email desse usuário corresponda ao email alvo.
-
-#     :param nova_chave_api: A nova chave 'Token' a ser atribuída.
-#     """
-#     with open("db/usuarios.json", 'r') as arquivo:
-#         data = json.load(arquivo)
-
-#     for usuario in data['usuarios']:
-#         if usuario.get('email') == email_alvo:
-#             usuario['API'] = nova_chave_api
-
-#     with open("db/usuarios.json", 'w') as arquivo:
-#         json.dump(data, arquivo, indent=4)
-
 
 def acesso():
     email_alvo = consultar_email_em_log()
@@ -219,10 +190,7 @@ def acesso():
 def dataframes_num(escolha):
     email_alvo = consultar_email_em_log()
     """
-    Esta função atualiza a chave 'Token' de um usuário em um arquivo JSON,
-    desde que o email desse usuário corresponda ao email alvo.
 
-    :param escolha: retorna um booleano com a escolha de apagar ou adicionar df
     """
     with open("db/usuarios.json", 'r') as arquivo:
         data = json.load(arquivo)
@@ -241,28 +209,10 @@ def dataframes_num(escolha):
     return True
 
 
-# def obter_api():
-#     email_alvo = consultar_email_em_log()
-#     """
-#     Esta função busca a chave 'Token' de um usuário com base no email fornecido.
-
-#     :param arquivo_json: O caminho para o arquivo JSON.
-#     :param email_alvo: O email do usuário cuja chave 'Token' será obtida.
-#     :return: A chave 'Token' do usuário ou None se o email não for encontrado.
-#     """
-#     with open("db/usuarios.json", 'r') as arquivo:
-#         data = json.load(arquivo)
-
-#     for usuario in data['usuarios']:
-#         if usuario.get('email') == email_alvo:
-#             return usuario.get('API')
-        
-
 
 def return_produtos_df(produto):
     prompt = "Escreva uma descricao para o produto {x}, que contenha detalhes do mesmo, como ingredientes, modo de preparo e popularidade no Brasil".format(x = produto)
-    return {"Produto": produto,
-            "Descrição": get_response(prompt = prompt),}
+    return get_response(prompt = prompt)
 
 
 def get_response(prompt):

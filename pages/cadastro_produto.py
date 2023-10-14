@@ -76,6 +76,5 @@ submit = st.button("Enviar")
 if submit:
     st.text(f"Descrição do Produto: {descricao_produto}")
     valores.append(descricao_produto)
-    st.warning(valores)
     append_gpt_to_df_all(consultar_email_em_log(),[valores])
     st.balloons()
