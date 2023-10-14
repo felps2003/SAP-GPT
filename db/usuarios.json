@@ -4,15 +4,7 @@
             "empresa": "BASF",
             "email": "basf@gmail.com",
             "senha": "12345",
-            "dataframes": 5,
-            "requests API": 0,
-            "acessos": 1
-        },
-        {
-            "empresa": "FIAP",
-            "email": "ocirneh@mail.com",
-            "senha": "123123",
-            "dataframes": 1,
+            "dataframes": 10,
             "requests API": 0,
             "acessos": 1
         }

@@ -50,7 +50,7 @@ with st.expander("Criar coluna de descrição"):
                     for i in df.index:
                         nome = df.loc[i,coluna]
                         descricao = get_response(f"Escreva uma descricao para o produto (em apenas 10 palavras): {nome}")
-                        df.loc[i,'Descricao'] = descricao
+                        df.loc[i,'horus'] = descricao
                         time.sleep(time_sleep)
                         print("foi")
                     st.dataframe(df)

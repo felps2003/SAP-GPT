@@ -115,8 +115,9 @@ def ler_dataframe_e_converter(df, sheet_name=None):
         tuple: Uma tupla contendo as listas de colunas (lista) e dados (lista).
 
     """
-    
 
+    if "horus" not in df.columns:
+        df['horus'] = np.nan
     colunas = df.columns.tolist()
     dados = df.values.tolist()
 
@@ -154,7 +155,7 @@ def adicionar_dataframe_para_email(colunas, dados):
         email_para_teste = str(user["email"]).lower()
         # st.warning(email_para_teste+'/'+email)
         if email_para_teste == email:
-            
+            #colunas = colunas.append("horus")
             for i in data[0]["bases"]:
                 if i["email"] == email:
                     i["dataframes"][0]["colunas"] = colunas
@@ -343,13 +344,13 @@ def append_gpt_to_df_all(email, dados):
             i['dataframes'][0]["dados"].append(*dados)
     with open("db/dataframes.json", "w") as file:        
         json.dump(data,file)
-    
+         
     
 
 def make_predict(image):
     np.set_printoptions(suppress=True)
-    model = load_model("/Users/henricobela/Desktop/Estudos/Challenge/SAP-GPT/model/model/newmodel/keras_model.h5", compile=False)
-    class_names = open("/Users/henricobela/Desktop/Estudos/Challenge/SAP-GPT/model/model/newmodel/labels.txt", "r").readlines()
+    model = load_model("model/model/newmodel/keras_model.h5", compile=False)
+    class_names = open("model/model/newmodel/labels.txt", "r").readlines()
     image = cv2.resize(image, (224, 224), interpolation=cv2.INTER_AREA)
     image = np.asarray(image, dtype=np.float32).reshape(1, 224, 224, 3)
     image = (image / 127.5) - 1
