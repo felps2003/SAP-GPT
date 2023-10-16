@@ -12,7 +12,16 @@ from streamlit_extras.switch_page_button import switch_page
 from keras.models import load_model 
 
 
-
+def insert_result():
+    if "results" in globals():
+        st.header("Previsão realizada e inserida no Horus!")
+        dicionario_gpt = return_produtos_df(results["class"])
+        df = get_user_dataframes()
+        novos_df = pd.DataFrame({coluna: [results["class"]],'horus': [dicionario_gpt]})
+        df = pd.concat([df, novos_df], ignore_index=True)
+        st.dataframe(df, use_container_width = True)
+        colunas, dados = ler_dataframe_e_converter(df)
+        adicionar_dataframe_para_email(colunas,dados)
 
 
 st.set_page_config(initial_sidebar_state = "collapsed",
@@ -54,7 +63,7 @@ coluna = st.selectbox("Selecione a coluna que contem os nomes dos produtos", opt
 TH_CONFIDENCE = 0.1
 
 if f_v == "Video":
-    run = st.checkbox("Run")
+    run = st.checkbox("Abrir Video")
     FRAME_WINDOW = st.image([])    
     try:
         cap = cv2.VideoCapture(0)
@@ -64,6 +73,7 @@ if f_v == "Video":
             results = make_predict(image)
             img = cv2.putText(img, results["label"], (50, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 3)
             FRAME_WINDOW.image(img)
+            
     except:
         pass
 
@@ -75,6 +85,7 @@ if f_v == "Video":
             results = make_predict(image)
             img = cv2.putText(img, results["label"], (50, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 3)
             FRAME_WINDOW.image(img)
+            
     except:
         pass
 
@@ -86,6 +97,7 @@ if f_v == "Video":
             results = make_predict(image)
             img = cv2.putText(img, results["label"], (50, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 3)
             FRAME_WINDOW.image(img)
+            
     except:
         pass
 
@@ -97,8 +109,12 @@ if f_v == "Video":
             results = make_predict(image)
             img = cv2.putText(img, results["label"], (50, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 3)
             FRAME_WINDOW.image(img)
+            
     except Exception as e:
         st.error(e)
+
+    insert_result()
+    
 
 
 elif f_v == "Foto":
@@ -115,6 +131,7 @@ elif f_v == "Foto":
             results = make_predict(img_to_predict)
             st.image(img, width = 400)
             st.success("{}".format(results["label"]))
+            insert_result()
             
 
     elif pic_or_send == "Enviar foto":
@@ -127,17 +144,8 @@ elif f_v == "Foto":
             results = make_predict(img_to_predict)
             st.image(img, width = 400)
             st.success("{}".format(results["label"]))
+            insert_result()
 
-if "results" in globals():
-    st.header("Previsão realizada e inserida no Horus!")
-    dicionario_gpt = return_produtos_df(results["class"])
-    df = get_user_dataframes()
-    novos_df = pd.DataFrame({coluna: [results["class"]],'horus': [dicionario_gpt]})
-    df = pd.concat([df, novos_df], ignore_index=True)
-    st.dataframe(df, use_container_width = True)
-    colunas, dados = ler_dataframe_e_converter(df)
-    adicionar_dataframe_para_email(colunas,dados)
-        
         
 else:
     st.warning("Prediçao ainda não realizada")
