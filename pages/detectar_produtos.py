@@ -60,8 +60,8 @@ if f_v == "Video":
         cap = cv2.VideoCapture(0)
         while run:
             ret, image = cap.read()
-            img = cv2.imread(image)
-            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+            # img = cv2.imread(image)
+            img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
             results = make_predict(image)
             img = cv2.putText(img, results["label"], (50, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 3)
             FRAME_WINDOW.image(img)
@@ -69,20 +69,20 @@ if f_v == "Video":
         cap = cv2.VideoCapture(1)
         while run:
             ret, image = cap.read()
-            img = cv2.imread(image)
+            # img = cv2.imread(image)
             img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
             results = make_predict(image)
             img = cv2.putText(img, results["label"], (50, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 3)
             FRAME_WINDOW.image(img)
-    finally:
-        cap = cv2.VideoCapture()
-        while run:
-            ret, image = cap.read()
-            img = cv2.imread(image)
-            img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-            results = make_predict(image)
-            img = cv2.putText(img, results["label"], (50, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 3)
-            FRAME_WINDOW.image(img)
+    # finally:
+    #     cap = cv2.VideoCapture()
+    #     while run:
+    #         ret, image = cap.read()
+    #         img = cv2.imread(image)
+    #         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    #         results = make_predict(image)
+    #         img = cv2.putText(img, results["label"], (50, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 3)
+    #         FRAME_WINDOW.image(img)
 
 
 elif f_v == "Foto":
