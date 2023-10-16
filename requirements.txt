@@ -9,4 +9,6 @@ tensorflow
 keras
 torch
 ultralytics
+pillow
+
 
