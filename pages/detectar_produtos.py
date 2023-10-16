@@ -22,6 +22,8 @@ def insert_result():
         st.dataframe(df, use_container_width = True)
         colunas, dados = ler_dataframe_e_converter(df)
         adicionar_dataframe_para_email(colunas,dados)
+    else:
+        st.warning("Previsao nao realizada")
 
 
 st.set_page_config(initial_sidebar_state = "collapsed",
@@ -60,61 +62,34 @@ coluna = st.selectbox("Selecione a coluna que contem os nomes dos produtos", opt
 
 
 
-TH_CONFIDENCE = 0.1
+TH_CONFIDENCE = 70
 
 if f_v == "Video":
-    run = st.checkbox("Abrir Video")
-    FRAME_WINDOW = st.image([])    
-    try:
-        cap = cv2.VideoCapture(0)
-        while run:
-            ret, image = cap.read()
-            img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-            results = make_predict(image)
-            img = cv2.putText(img, results["label"], (50, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 3)
-            FRAME_WINDOW.image(img)
-            
-    except:
-        pass
-
-    try:
-        cap = cv2.VideoCapture(1)
-        while run:
-            ret, image = cap.read()
-            img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-            results = make_predict(image)
-            img = cv2.putText(img, results["label"], (50, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 3)
-            FRAME_WINDOW.image(img)
-            
-    except:
-        pass
-
-    try:
-        cap = cv2.VideoCapture(2)
-        while run:
-            ret, image = cap.read()
-            img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-            results = make_predict(image)
-            img = cv2.putText(img, results["label"], (50, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 3)
-            FRAME_WINDOW.image(img)
-            
-    except:
-        pass
-
-    try:
-        cap = cv2.VideoCapture(-1)
-        while run:
-            ret, image = cap.read()
-            img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-            results = make_predict(image)
-            img = cv2.putText(img, results["label"], (50, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 3)
-            FRAME_WINDOW.image(img)
-            
-    except Exception as e:
-        st.error(e)
-
-    insert_result()
+    cap = cv2.VideoCapture(1)
+    frame_placeholder = st.empty()
+    start_button = st.button("Start")
+    stop_button = st.button("Stop")
     
+    if start_button:
+        while cap.isOpened() and not stop_button:
+            ret, image = cap.read()
+            
+            if not ret:
+                st.write("O video parou")
+                break
+
+            results = make_predict(image)
+            img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+            if float(results["score"]) > TH_CONFIDENCE:
+                label = results['label'].replace("_", " ")
+                label = label.replace("?", " ")
+                img = cv2.putText(img, label, (80, 100), cv2.FONT_HERSHEY_SIMPLEX, 2, (255, 0, 0), 5)
+
+            frame_placeholder.image(img, channels = "RGB")
+
+            if stop_button:
+                break
 
 
 elif f_v == "Foto":
