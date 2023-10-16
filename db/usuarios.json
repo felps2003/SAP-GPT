@@ -15,6 +15,14 @@
             "dataframes": 1,
             "requests API": 0,
             "acessos": 1
+        },
+        {
+            "empresa": "FIAP",
+            "email": "ocirneh@mail.com",
+            "senha": "123123",
+            "dataframes": 2,
+            "requests API": 0,
+            "acessos": 1
         }
     ]
 }
