@@ -44,9 +44,10 @@ if button_back.button("Voltar para Tela Inicial"):
 
 
 st.info("Para iniciar a detecção de objetos, por favor selecione o metodo de detecção de Objetos: Foto ou Video")
-
+df_original = get_user_dataframes()
+df_original.drop(columns=["horus"], inplace = True)
 f_v = st.selectbox(options = ["Selecione", "Foto", "Video"], label = "Método de Detecção")
-
+coluna = st.selectbox("Selecione a coluna que contem os nomes dos produtos", options = df_original.columns)
 
 
 
@@ -55,11 +56,8 @@ TH_CONFIDENCE = 0.1
 if f_v == "Video":
     run = st.checkbox("Run")
     FRAME_WINDOW = st.image([])
-    try:
-        cap = cv2.VideoCapture(0)
-    except:
-        cap = cv2.VideoCapture(1)
-
+    cap = cv2.VideoCapture(0)
+    
 
     while run:
         ret, image = cap.read()
@@ -97,13 +95,14 @@ elif f_v == "Foto":
             st.success("{}".format(results["label"]))
 
 if "results" in globals():
-    st.header("Previsão realizada e inserida na base de dados!")
+    st.header("Previsão realizada e inserida no Horus!")
     dicionario_gpt = return_produtos_df(results["class"])
-    df = pd.DataFrame(dicionario_gpt, index = [len(dicionario_gpt)])
-    df['Descrição'] = df['Descrição'].str.replace('\n\n', '')
+    df = get_user_dataframes()
+    novos_df = pd.DataFrame({coluna: [results["class"]],'horus': [dicionario_gpt]})
+    df = pd.concat([df, novos_df], ignore_index=True)
     st.dataframe(df, use_container_width = True)
-    teste = ler_dataframe_e_converter(df)
-    append_gpt_to_df_all(consultar_email_em_log(), teste[1])
+    colunas, dados = ler_dataframe_e_converter(df)
+    adicionar_dataframe_para_email(colunas,dados)
         
         
 else:

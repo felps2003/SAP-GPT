@@ -36,13 +36,13 @@ if contagem_de_dashboards() != 0:
     uploaded_file = st.file_uploader("Enviar Excel", accept_multiple_files=False)
     if uploaded_file:
         df = pd.read_excel(uploaded_file)
-        teste = ler_dataframe_e_converter(df, sheet_name=None)
+        colunas, dados = ler_dataframe_e_converter(df, sheet_name=None)
         st.dataframe(df)
         email = consultar_email_em_log()
         caixa = st.checkbox("Tem certeza que deseja atualizar sua base ? Ela será apagada")
         butao = st.button("Atualizar base de dados")
         if butao and caixa:
-            adicionar = adicionar_dataframe_para_email(teste[0], teste[1])
+            adicionar = adicionar_dataframe_para_email(colunas, dados)
             if adicionar == True:
                 st.success('Base atualizada com sucesso')
             else: 
@@ -69,11 +69,11 @@ if contagem_de_dashboards() == 0:
     uploaded_file = st.file_uploader("Enviar Excel")
     if uploaded_file:
         df = pd.read_excel(uploaded_file)
-        teste = ler_dataframe_e_converter(df, sheet_name=None)
+        colunas, dados = ler_dataframe_e_converter(df, sheet_name=None)
         st.dataframe(df)
         email = consultar_email_em_log()
         if st.button("Adicionar novo Excel"):
-            adicionar = adicionar_dataframe_para_email(teste[0], teste[1])
+            adicionar = adicionar_dataframe_para_email(colunas, dados)
             if adicionar == True:
                 st.success('Tabela adicionada com sucesso')
                 switch_page("main")
