@@ -10,5 +10,8 @@ keras
 torch
 ultralytics
 pillow
-
+streamlit-webrtc
+av
+opencv-python-headless
+openpyxl
 
