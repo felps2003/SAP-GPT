@@ -73,11 +73,11 @@ if f_v == "Video":
     if start_button:
         while cap.isOpened() and not stop_button:
             ret, image = cap.read()
-            
+
             if not ret:
                 st.write("O video parou")
                 break
-
+ 
             results = make_predict(image)
             img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
