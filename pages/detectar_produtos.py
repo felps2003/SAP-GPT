@@ -242,8 +242,7 @@ if f_v == "Video":
         mode=WebRtcMode.SENDRECV,
         rtc_configuration=rtc_configuration,
         media_stream_constraints={"video": True, "audio": False},
-        async_processing=True,
-        video_frame_callback=insert_result_video)
+        async_processing=True,)
 
 
 elif f_v == "Foto":
