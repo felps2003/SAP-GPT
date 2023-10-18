@@ -243,9 +243,10 @@ if f_v == "Video":
         rtc_configuration=rtc_configuration,
         media_stream_constraints={"video": True, "audio": False},
         async_processing=True,)
-
-    insert_result()
-
+    try:
+        insert_result()
+    except Exception as e:
+        st.error(f"Erro: {e}")
 
 elif f_v == "Foto":
 
