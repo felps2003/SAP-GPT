@@ -259,7 +259,7 @@ elif f_v == "Foto":
             results = make_predict(img_to_predict)
             st.image(img, width = 400)
             st.success("{}".format(results["label"]))
-            insert_result()
+            insert_result_video()
             
 
     elif pic_or_send == "Enviar foto":
