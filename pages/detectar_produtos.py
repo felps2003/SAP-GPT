@@ -218,7 +218,7 @@ class VideoProcessor(VideoProcessorBase):
 
         results = make_predict(frame_as_array)
         # frame_as_array = cv2.cvtColor(frame_as_array, cv2.COLOR_BGR2RGB)
-
+        print(results["class"])
         if float(results["score"]) > TH_CONFIDENCE:
             label = results['label'].replace("_", " ")
             frame_as_array = cv2.putText(frame_as_array, label, (50, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 3)
