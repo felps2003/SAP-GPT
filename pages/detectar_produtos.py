@@ -236,13 +236,14 @@ rtc_configuration = RTCConfiguration(
 
 
 if f_v == "Video":
-    webrtc_streamer(
+    while webrtc_streamer(
         key="example",
         video_processor_factory=VideoProcessor,
         mode=WebRtcMode.SENDRECV,
         rtc_configuration=rtc_configuration,
         media_stream_constraints={"video": True, "audio": False},
-        async_processing=True,)
+        async_processing=True,):
+        insert_result_video()
 
 
 elif f_v == "Foto":
