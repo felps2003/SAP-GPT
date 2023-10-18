@@ -221,11 +221,6 @@ class VideoProcessor(VideoProcessorBase):
         if float(results["score"]) > TH_CONFIDENCE:
             label = results['label'].replace("_", " ")
             frame_as_array = cv2.putText(frame_as_array, label, (50, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 3)
-            try:
-                insert_result()
-            except Exception as e:
-                print(f"Erro: {e}")
-
 
         return av.VideoFrame.from_ndarray(frame_as_array, format="bgr24")
 
