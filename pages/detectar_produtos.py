@@ -222,7 +222,6 @@ class VideoProcessor(VideoProcessorBase):
         if float(results["score"]) > TH_CONFIDENCE:
             label = results['label'].replace("_", " ")
             frame_as_array = cv2.putText(frame_as_array, label, (50, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 3)
-            insert_result_video()
 
         return av.VideoFrame.from_ndarray(frame_as_array, format="bgr24")
 
@@ -236,13 +235,17 @@ rtc_configuration = RTCConfiguration(
 
 
 if f_v == "Video":
-    video_frame = webrtc_streamer(
+    if webrtc_streamer(
         key="example",
         video_processor_factory=VideoProcessor,
         mode=WebRtcMode.SENDRECV,
         rtc_configuration=rtc_configuration,
         media_stream_constraints={"video": True, "audio": False},
-        async_processing=True)
+        async_processing=True):
+
+        insert_result_video()
+    
+
        
 
 elif f_v == "Foto":
