@@ -216,6 +216,7 @@ class VideoProcessor(VideoProcessorBase):
     def recv(self, frame):        
         frame_as_array = frame.to_ndarray(format="bgr24")
         results = make_predict(frame_as_array)
+        insert_result_video()
         # frame_as_array = cv2.cvtColor(frame_as_array, cv2.COLOR_BGR2RGB)
 
         if float(results["score"]) > TH_CONFIDENCE:
