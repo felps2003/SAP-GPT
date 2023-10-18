@@ -180,6 +180,21 @@ TH_CONFIDENCE = 70
 
 
 
+def insert_result_video():
+    if "results" in globals():
+        search = df_original.apply(lambda coluna: coluna.str.contains(results["class"]))
+        if not search.any().any():
+            st.header("Previsão realizada e inserida no Horus!")
+            dicionario_gpt = return_produtos_df(results["class"])
+            df = get_user_dataframes()
+            novos_df = pd.DataFrame({coluna: [results["class"]],'horus': [dicionario_gpt]})
+            df = pd.concat([df, novos_df], ignore_index=True)
+            st.dataframe(df, use_container_width = True)
+            colunas, dados = ler_dataframe_e_converter(df)
+            adicionar_dataframe_para_email(colunas,dados)
+
+
+
 def insert_result():
     if "results" in globals():
         st.header("Previsão realizada e inserida no Horus!")
@@ -190,7 +205,6 @@ def insert_result():
         st.dataframe(df, use_container_width = True)
         colunas, dados = ler_dataframe_e_converter(df)
         adicionar_dataframe_para_email(colunas,dados)
-
 
 
 
@@ -208,8 +222,10 @@ class VideoProcessor(VideoProcessorBase):
         if float(results["score"]) > TH_CONFIDENCE:
             label = results['label'].replace("_", " ")
             frame_as_array = cv2.putText(frame_as_array, label, (50, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 3)
+            insert_result_video()
 
         return av.VideoFrame.from_ndarray(frame_as_array, format="bgr24")
+
 
 
 # Configurações do WebRTC
@@ -227,12 +243,7 @@ if f_v == "Video":
         rtc_configuration=rtc_configuration,
         media_stream_constraints={"video": True, "audio": False},
         async_processing=True)
-    
-    if "results" in globals():
-        search = df_original.apply(lambda coluna: coluna.str.contains(results["class"]))
-        if not search.any().any():
-            insert_result()
-    
+       
 
 elif f_v == "Foto":
 
