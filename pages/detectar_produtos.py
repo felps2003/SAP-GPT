@@ -192,8 +192,6 @@ def insert_result_video():
             st.dataframe(df, use_container_width = True)
             colunas, dados = ler_dataframe_e_converter(df)
             adicionar_dataframe_para_email(colunas,dados)
-            print("ok")
-
 
 
 def insert_result():
@@ -216,7 +214,6 @@ class VideoProcessor(VideoProcessorBase):
     def recv(self, frame):        
         frame_as_array = frame.to_ndarray(format="bgr24")
         results = make_predict(frame_as_array)
-        insert_result_video()
         # frame_as_array = cv2.cvtColor(frame_as_array, cv2.COLOR_BGR2RGB)
 
         if float(results["score"]) > TH_CONFIDENCE:
