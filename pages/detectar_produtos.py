@@ -221,6 +221,11 @@ class VideoProcessor(VideoProcessorBase):
         if float(results["score"]) > TH_CONFIDENCE:
             label = results['label'].replace("_", " ")
             frame_as_array = cv2.putText(frame_as_array, label, (50, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 3)
+            try:
+                insert_result()
+            except Exception as e:
+                st.error(f"Erro: {e}")
+
 
         return av.VideoFrame.from_ndarray(frame_as_array, format="bgr24")
 
@@ -234,8 +239,6 @@ rtc_configuration = RTCConfiguration(
 
 
 if f_v == "Video":
-    global results
-
     webrtc_streamer(
         key="example",
         video_processor_factory=VideoProcessor,
@@ -243,11 +246,7 @@ if f_v == "Video":
         rtc_configuration=rtc_configuration,
         media_stream_constraints={"video": True, "audio": False},
         async_processing=True,)
-    try:
-        insert_result()
-    except Exception as e:
-        st.error(f"Erro: {e}")
-
+    
 elif f_v == "Foto":
 
     pic_or_send = st.radio(options = ["Tirar foto", "Enviar foto"], label = "Selecione")
