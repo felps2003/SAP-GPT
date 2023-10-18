@@ -192,6 +192,7 @@ def insert_result_video():
             st.dataframe(df, use_container_width = True)
             colunas, dados = ler_dataframe_e_converter(df)
             adicionar_dataframe_para_email(colunas,dados)
+            print("ok")
 
 
 
@@ -218,7 +219,7 @@ class VideoProcessor(VideoProcessorBase):
 
         results = make_predict(frame_as_array)
         # frame_as_array = cv2.cvtColor(frame_as_array, cv2.COLOR_BGR2RGB)
-        print(results["class"])
+
         if float(results["score"]) > TH_CONFIDENCE:
             label = results['label'].replace("_", " ")
             frame_as_array = cv2.putText(frame_as_array, label, (50, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 3)
@@ -235,18 +236,15 @@ rtc_configuration = RTCConfiguration(
 
 
 if f_v == "Video":
-    if webrtc_streamer(
+    webrtc_streamer(
         key="example",
         video_processor_factory=VideoProcessor,
         mode=WebRtcMode.SENDRECV,
         rtc_configuration=rtc_configuration,
         media_stream_constraints={"video": True, "audio": False},
-        async_processing=True):
+        async_processing=True,
+        video_frame_callback=insert_result_video)
 
-        insert_result_video()
-    
-
-       
 
 elif f_v == "Foto":
 
