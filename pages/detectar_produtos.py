@@ -224,7 +224,7 @@ class VideoProcessor(VideoProcessorBase):
             try:
                 insert_result()
             except Exception as e:
-                st.error(f"Erro: {e}")
+                print(f"Erro: {e}")
 
 
         return av.VideoFrame.from_ndarray(frame_as_array, format="bgr24")
