@@ -178,22 +178,37 @@ coluna = st.selectbox("Selecione a coluna que contem os nomes dos produtos", opt
 TH_CONFIDENCE = 70
 
 
-# Define a classe de processamento de vídeo
+
+
+def insert_result():
+    if "results" in globals():
+        st.header("Previsão realizada e inserida no Horus!")
+        dicionario_gpt = return_produtos_df(results["class"])
+        df = get_user_dataframes()
+        novos_df = pd.DataFrame({coluna: [results["class"]],'horus': [dicionario_gpt]})
+        df = pd.concat([df, novos_df], ignore_index=True)
+        st.dataframe(df, use_container_width = True)
+        colunas, dados = ler_dataframe_e_converter(df)
+        adicionar_dataframe_para_email(colunas,dados)
+
+
+
+
 class VideoProcessor(VideoProcessorBase):
     def _init_(self):
         super()._init_()
 
     def recv(self, frame):
-        # Converte o frame para um NumPy array
+
         frame_as_array = frame.to_ndarray(format="bgr24")
-        # Processa o frame se necessário
+
         results = make_predict(frame_as_array)
         # frame_as_array = cv2.cvtColor(frame_as_array, cv2.COLOR_BGR2RGB)
 
         if float(results["score"]) > TH_CONFIDENCE:
             label = results['label'].replace("_", " ")
             frame_as_array = cv2.putText(frame_as_array, label, (50, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 3)
-        # Retorna o frame como um NumPy array
+
         return av.VideoFrame.from_ndarray(frame_as_array, format="bgr24")
 
 
@@ -212,6 +227,12 @@ if f_v == "Video":
         rtc_configuration=rtc_configuration,
         media_stream_constraints={"video": True, "audio": False},
         async_processing=True)
+    
+    if "results" in globals():
+        search = df_original.apply(lambda coluna: coluna.str.contains(results["class"]))
+        if not search.any().any():
+            insert_result()
+    
 
 elif f_v == "Foto":
 
@@ -227,6 +248,7 @@ elif f_v == "Foto":
             results = make_predict(img_to_predict)
             st.image(img, width = 400)
             st.success("{}".format(results["label"]))
+            insert_result()
             
 
     elif pic_or_send == "Enviar foto":
@@ -239,16 +261,9 @@ elif f_v == "Foto":
             results = make_predict(img_to_predict)
             st.image(img, width = 400)
             st.success("{}".format(results["label"]))
+            insert_result()
 
-if "results" in globals():
-    st.header("Previsão realizada e inserida no Horus!")
-    dicionario_gpt = return_produtos_df(results["class"])
-    df = get_user_dataframes()
-    novos_df = pd.DataFrame({coluna: [results["class"]],'horus': [dicionario_gpt]})
-    df = pd.concat([df, novos_df], ignore_index=True)
-    st.dataframe(df, use_container_width = True)
-    colunas, dados = ler_dataframe_e_converter(df)
-    adicionar_dataframe_para_email(colunas,dados)
+
         
         
 else:
