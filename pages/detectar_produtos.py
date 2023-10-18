@@ -214,7 +214,8 @@ class VideoProcessor(VideoProcessorBase):
         super()._init_()
 
     def recv(self, frame):
-
+        global results
+        
         frame_as_array = frame.to_ndarray(format="bgr24")
 
         results = make_predict(frame_as_array)
