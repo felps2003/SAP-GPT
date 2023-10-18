@@ -213,11 +213,8 @@ class VideoProcessor(VideoProcessorBase):
     def _init_(self):
         super()._init_()
 
-    def recv(self, frame):
-        global results
-        
+    def recv(self, frame):        
         frame_as_array = frame.to_ndarray(format="bgr24")
-
         results = make_predict(frame_as_array)
         # frame_as_array = cv2.cvtColor(frame_as_array, cv2.COLOR_BGR2RGB)
 
@@ -237,6 +234,8 @@ rtc_configuration = RTCConfiguration(
 
 
 if f_v == "Video":
+    global results
+
     webrtc_streamer(
         key="example",
         video_processor_factory=VideoProcessor,
