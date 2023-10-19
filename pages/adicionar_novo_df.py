@@ -5,7 +5,7 @@ import pandas as pd
 from src.functions import *
 
 st.set_page_config(initial_sidebar_state = "collapsed",
-                   page_icon = "util/imgs/logo-horus.png",
+                   page_icon = "util/imgs/logotipo.png",
                    page_title = "NoName")
 
 st.markdown(
@@ -20,14 +20,16 @@ st.markdown(
     """,
     unsafe_allow_html = True)
 
+with open('css/style.css') as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
 st.image("./util/imgs/logo-horus.png", width = 200)
 
 
 if contagem_de_dashboards() != 0:
-    st.subheader("Atualizar base de dados")
     if st.button("Voltar"):
         switch_page("main")
-    
+    st.subheader("Atualizar base de dados")
     st.markdown(
     f"""
         <p>Alerta! Essa opção mudara completamente a base da empresa {nome_empresa()} </p>

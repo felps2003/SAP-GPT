@@ -5,7 +5,7 @@ import pandas as pd
 import time
 
 st.set_page_config(initial_sidebar_state = "collapsed",
-                   page_icon = "util/imgs/logo-horus.png",
+                   page_icon = "util/imgs/logotipo.png",
                    page_title = "NoName")
 
 st.markdown(
@@ -22,18 +22,22 @@ st.markdown(
 
 st.image("./util/imgs/logo-horus.png", width = 200)
 
-st.subheader("Preencher base de dados")
-
-st.markdown('---')
-
-
-
 
 if st.button("Voltar"):
     switch_page("main")
 
+st.subheader("Preencher base de dados")
 
-st.markdown('---')
+
+
+with open('css/style.css') as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+
+
+
+
+
 
 df = get_user_dataframes()
 

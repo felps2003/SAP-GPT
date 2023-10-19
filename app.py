@@ -5,7 +5,7 @@ import pandas as pd
 
 
 st.set_page_config(initial_sidebar_state = "collapsed",
-                   page_icon = "util/imgs/logo-horus.png",
+                   page_icon = "util/imgs/logotipo.png",
                    page_title = "NoName")
 
 with open('css/background.css') as f:
@@ -26,7 +26,7 @@ col_project_name, col_img  = st.columns([3, 1])
 col_img.image("util/imgs/logo.png")
 col_project_name.image("./util/imgs/logo-horus.png", width = 200)
 
-st.markdown("---", unsafe_allow_html = True)
+#st.markdown("---", unsafe_allow_html = True)
 
 
 can_pass = False

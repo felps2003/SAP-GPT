@@ -31,6 +31,14 @@
             "dataframes": 2,
             "requests API": 0,
             "acessos": 1
+        },
+        {
+            "empresa": "Ignotum",
+            "email": "ignotum@gmail.com",
+            "senha": "12345",
+            "dataframes": 1,
+            "requests API": 0,
+            "acessos": 1
         }
     ]
 }

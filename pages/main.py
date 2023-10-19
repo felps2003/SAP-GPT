@@ -5,7 +5,7 @@ import pandas as pd
 
 
 st.set_page_config(initial_sidebar_state = "collapsed",
-                   page_icon = "util/imgs/logo-horus.png",
+                   page_icon = "util/imgs/logotipo.png",
                    page_title = "NoName")
 
 st.markdown(
@@ -21,12 +21,8 @@ st.markdown(
     unsafe_allow_html = True)
 
 
-col_project_name, col_img  = st.columns([3, 1])
-col_img.image("util/imgs/logo.png")
-col_project_name.image("./util/imgs/logo-horus.png", width = 200)
 with open('css/main.css') as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-st.markdown("---", unsafe_allow_html = True)
 
 email_log = consultar_email_em_log()
 

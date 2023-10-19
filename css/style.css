@@ -1,0 +1,57 @@
+[data-testid="stHeader"]{
+    display: none;
+    }
+    [data-testid="stImage"]{
+        margin-top:-100px;
+        padding-bottom: 50px;
+      }
+
+      [data-testid="stAppViewContainer"]{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(-45deg, #70138e, #401ebe, #2844d8, #2844d8);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+        height: 100vh;
+      }
+
+[data-testid="stMarkdownContainer"]{
+    color: white;
+}
+[data-testid="stExpander"]{
+    transition: transform 0.2s !important;
+}
+[data-testid="stExpander"]:hover{
+    transform: translateY(-5px) !important;
+}
+
+button{
+
+    border-radius: 50px;
+  
+  
+    background: #000000af !important;
+    color: white !important;
+    transition: transform 0.2s !important;
+  }
+  button:hover{
+  
+    
+      background: #000000 !important;
+      border-color: white !important;
+      border-radius: 20px !important;
+      transform: translateY(-5px) !important;
+    }
+
+@keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }

@@ -143,7 +143,7 @@ import av
 
 
 st.set_page_config(initial_sidebar_state = "collapsed",
-                   page_icon = "util/imgs/logo-horus.png",
+                   page_icon = "util/imgs/logotipo.png",
                    page_title = "NoName")
 
 st.markdown(
@@ -157,17 +157,20 @@ st.markdown(
         </style>
     """,
     unsafe_allow_html = True)
+with open('css/style.css') as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 st.image("./util/imgs/logo-horus.png", width = 200)
 
 
 col_project_name, col_img, button_back  = st.columns([3, 1, 1])
 col_img.image("util/imgs/logo.png")
+if st.button("Voltar"):
+    switch_page("main")
 col_project_name.header("Detecção de Coca ou Fanta")
 st.markdown("---", unsafe_allow_html = True)
 
-if button_back.button("Voltar para Tela Inicial"):
-    switch_page("main")
+
 
 
 st.info("Para iniciar a detecção de objetos, por favor selecione o metodo de detecção de Objetos: Foto ou Video")

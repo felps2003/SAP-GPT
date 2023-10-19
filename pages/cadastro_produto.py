@@ -4,7 +4,7 @@ from src.modelo_gpt import get_response
 from src.functions import *
 
 st.set_page_config(initial_sidebar_state = "collapsed",
-                   page_icon = "util/imgs/logo-horus.png",
+                   page_icon = "util/imgs/logotipo.png",
                    page_title = "NoName")
 
 
@@ -20,13 +20,17 @@ st.markdown(
     """,
     unsafe_allow_html = True)
 
+with open('css/style.css') as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
 df = get_user_dataframes()
 col_project_name, col_img  = st.columns([3, 1])
 col_img.image("util/imgs/logo.png")
 col_project_name.image("./util/imgs/logo-horus.png", width = 200)
-col_project_name.subheader("Adicionar novo produto a base")
 if st.button("Voltar"):
     switch_page("main")
+col_project_name.subheader("Adicionar novo produto a base")
+
 st.markdown("---", unsafe_allow_html = True)
 df.drop(columns=["horus"], inplace = True)
 col_data1, col_data2, col_data3 = st.columns([1, 1, 1])
