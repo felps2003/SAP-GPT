@@ -187,7 +187,7 @@ TH_CONFIDENCE = 70
 
 
 def insert_result_video(results, coluna_produto):
-    if results["class"] not in df_original[coluna_produto].to_list():
+    if results.get("class", "") not in df_original[coluna_produto].to_list():
         st.header("Previsão realizada e inserida no Horus!")
         dicionario_gpt = return_produtos_df(results["class"])
         df = get_user_dataframes()
