@@ -189,9 +189,9 @@ TH_CONFIDENCE = 70
 def insert_result_video(results, coluna_produto):
     if results.get("class", "") not in df_original[coluna_produto].to_list():
         st.header("Previsão realizada e inserida no Horus!")
-        dicionario_gpt = return_produtos_df(results["class"])
+        dicionario_gpt = return_produtos_df(results.get("class", ""))
         df = get_user_dataframes()
-        novos_df = pd.DataFrame({coluna: [results["class"]],'horus': [dicionario_gpt]})
+        novos_df = pd.DataFrame({coluna: [results.get("class", "")],'horus': [dicionario_gpt]})
         df = pd.concat([df, novos_df], ignore_index=True)
         st.dataframe(df, use_container_width = True)
         colunas, dados = ler_dataframe_e_converter(df)
@@ -226,7 +226,7 @@ class VideoProcessor(VideoProcessorBase):
     def recv(self, frame):        
         frame_as_array = frame.to_ndarray(format="bgr24")
         results = self.return_result_img(frame_as_array)
-        self.return_result_to_predict = results
+        # self.return_result_to_predict = results
 
         if float(results["score"]) > TH_CONFIDENCE:
             label = results['label'].replace("_", " ")
