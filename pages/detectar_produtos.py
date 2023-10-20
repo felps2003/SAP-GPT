@@ -140,6 +140,9 @@ from streamlit_extras.switch_page_button import switch_page
 from keras.models import load_model 
 from streamlit_webrtc import webrtc_streamer, VideoProcessorBase, RTCConfiguration, WebRtcMode
 import av
+import threading
+import time
+
 
 
 st.set_page_config(initial_sidebar_state = "collapsed",
@@ -185,7 +188,11 @@ TH_CONFIDENCE = 70
 
 def insert_result_video():
     if "results" in globals():
-        search = df_original.apply(lambda coluna: coluna.str.contains(results["class"]))
+        # Suponha que results seja um dicionário
+        class_to_search = results.get("class", "")  # Obtém o valor associado à chave "class" ou uma string vazia se não existir
+
+        search = df_original.apply(lambda coluna: coluna.astype(str).str.contains(class_to_search))
+
         if not search.any().any():
             st.header("Previsão realizada e inserida no Horus!")
             dicionario_gpt = return_produtos_df(results["class"])
@@ -195,6 +202,8 @@ def insert_result_video():
             st.dataframe(df, use_container_width = True)
             colunas, dados = ler_dataframe_e_converter(df)
             adicionar_dataframe_para_email(colunas,dados)
+        else:
+            st.warning("Produto já adicionado na base!")
 
 
 def insert_result():
@@ -211,19 +220,26 @@ def insert_result():
 
 
 class VideoProcessor(VideoProcessorBase):
-    def _init_(self):
-        super()._init_()
+    def __init__(self):
+        self.return_result_to_predict = {}
+
+
+    def return_result_img(self, frame):
+        results = make_predict(frame)
+        return results
+    
 
     def recv(self, frame):        
         frame_as_array = frame.to_ndarray(format="bgr24")
-        results = make_predict(frame_as_array)
-        # frame_as_array = cv2.cvtColor(frame_as_array, cv2.COLOR_BGR2RGB)
+        results = self.return_result_img(frame_as_array)
+        self.return_result_to_predict = results
 
         if float(results["score"]) > TH_CONFIDENCE:
             label = results['label'].replace("_", " ")
             frame_as_array = cv2.putText(frame_as_array, label, (50, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 3)
 
         return av.VideoFrame.from_ndarray(frame_as_array, format="bgr24")
+
 
 
 
@@ -235,13 +251,20 @@ rtc_configuration = RTCConfiguration(
 
 
 if f_v == "Video":
-    webrtc_streamer(
+    ctx = webrtc_streamer(
         key="example",
         video_processor_factory=VideoProcessor,
         mode=WebRtcMode.SENDRECV,
         rtc_configuration=rtc_configuration,
-        media_stream_constraints={"video": True, "audio": False},
-        async_processing=True,)
+        media_stream_constraints={"video": True, "audio": False})
+    
+
+    while ctx.state.playing:
+        time.sleep(2)
+        results = ctx.video_processor.return_result_to_predict
+        st.success(results)
+        insert_result_video()
+
     
 elif f_v == "Foto":
 
