@@ -186,24 +186,18 @@ TH_CONFIDENCE = 70
 
 
 
-def insert_result_video():
-    if "results" in globals():
-        # Suponha que results seja um dicionário
-        class_to_search = results.get("class", "")  # Obtém o valor associado à chave "class" ou uma string vazia se não existir
-
-        search = df_original.apply(lambda coluna: coluna.astype(str).str.contains(class_to_search))
-
-        if not search.any().any():
-            st.header("Previsão realizada e inserida no Horus!")
-            dicionario_gpt = return_produtos_df(results["class"])
-            df = get_user_dataframes()
-            novos_df = pd.DataFrame({coluna: [results["class"]],'horus': [dicionario_gpt]})
-            df = pd.concat([df, novos_df], ignore_index=True)
-            st.dataframe(df, use_container_width = True)
-            colunas, dados = ler_dataframe_e_converter(df)
-            adicionar_dataframe_para_email(colunas,dados)
-        else:
-            st.warning("Produto já adicionado na base!")
+def insert_result_video(results, coluna_produto):
+    if results["class"] not in df_original[coluna_produto].to_list():
+        st.header("Previsão realizada e inserida no Horus!")
+        dicionario_gpt = return_produtos_df(results["class"])
+        df = get_user_dataframes()
+        novos_df = pd.DataFrame({coluna: [results["class"]],'horus': [dicionario_gpt]})
+        df = pd.concat([df, novos_df], ignore_index=True)
+        st.dataframe(df, use_container_width = True)
+        colunas, dados = ler_dataframe_e_converter(df)
+        adicionar_dataframe_para_email(colunas,dados)
+    else:
+        st.warning("Produto já adicionado na base!")
 
 
 def insert_result():
@@ -258,12 +252,13 @@ if f_v == "Video":
         rtc_configuration=rtc_configuration,
         media_stream_constraints={"video": True, "audio": False})
     
-
+    reset = st.empty()
     while ctx.state.playing:
-        time.sleep(2)
-        results = ctx.video_processor.return_result_to_predict
-        st.success(results)
-        insert_result_video()
+        with reset.container():
+            time.sleep(2)
+            results = ctx.video_processor.return_result_to_predict
+            st.success(results)
+            insert_result_video(results, coluna)
 
     
 elif f_v == "Foto":
