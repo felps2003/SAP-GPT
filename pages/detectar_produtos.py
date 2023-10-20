@@ -249,7 +249,7 @@ if f_v == "Video":
         key="example",
         video_processor_factory=VideoProcessor,
         mode=WebRtcMode.SENDRECV,
-        # rtc_configuration=rtc_configuration,
+        rtc_configuration=rtc_configuration,
         media_stream_constraints={"video": True, "audio": False})
     
     reset = st.empty()
