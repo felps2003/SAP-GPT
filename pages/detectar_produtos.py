@@ -226,7 +226,7 @@ class VideoProcessor(VideoProcessorBase):
     def recv(self, frame):        
         frame_as_array = frame.to_ndarray(format="bgr24")
         results = self.return_result_img(frame_as_array)
-        # self.return_result_to_predict = results
+        self.return_result_to_predict = results
 
         if float(results["score"]) > TH_CONFIDENCE:
             label = results['label'].replace("_", " ")
