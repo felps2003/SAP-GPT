@@ -257,7 +257,7 @@ if f_v == "Video":
         with reset.container():
             time.sleep(2)
             results = ctx.video_processor.return_result_to_predict
-            st.success(results)
+            # st.success(results)
             insert_result_video(results, coluna)
 
     
