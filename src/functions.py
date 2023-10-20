@@ -219,7 +219,7 @@ def get_response(prompt):
     try:
         openai.api_key = "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" #email cultura
         model_engine = "text-davinci-003"
-        response = openai.ChatCompletion.create(
+        response = openai.Completion.create(
             engine=model_engine,
             prompt=prompt,
             max_tokens=150,
