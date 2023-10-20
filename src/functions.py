@@ -217,9 +217,9 @@ def return_produtos_df(produto):
 
 def get_response(prompt):
     try:
-        openai.api_key = "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"
+        openai.api_key = "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" #email cultura
         model_engine = "text-davinci-003"
-        response = openai.Completion.create(
+        response = openai.ChatCompletion.create(
             engine=model_engine,
             prompt=prompt,
             max_tokens=150,
@@ -228,6 +228,7 @@ def get_response(prompt):
         response_choice = response.choices[0].text
         return response_choice
     except Exception as e:
+        print(e)
         st.warning(f"API do CHATGPT nao configurada. Erro: {e}")
 
 
